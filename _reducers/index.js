@@ -6,6 +6,7 @@ const initialState = {
   isLogget: false,
   isPending: false,
   isLoading: false,
+  isMenuOpened: false,
   user: {
     teamName: '',
     teamId: '',
@@ -77,6 +78,14 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         region: position.coords
       }
+    }
+
+    case types.TOGGLE_MENU : {
+      nextState = {
+        ...state,
+        isMenuOpened: !state.isMenuOpened
+      }
+      return nextState;
     }
 
     default: {

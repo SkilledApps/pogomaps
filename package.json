@@ -8,6 +8,7 @@
   "dependencies": {
     "react": "15.2.1",
     "react-native": "0.29.0",
+    "react-native-autocomplete": "^0.1.4",
     "react-native-in-app-utils": "^4.0.0",
     "react-native-maps": "^0.7.1",
     "react-native-push-notification": "^2.0.0",

@@ -28,6 +28,9 @@ import * as types from './types';
 //     }
 //   }
 // }
+export function toggleMenu() {
+  return dispatch => dispatch({type: types.TOGGLE_MENU});
+}
 
 export function getPointsByTeamId(teamName) {
   return dispatch =>

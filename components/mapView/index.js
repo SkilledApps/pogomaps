@@ -13,7 +13,7 @@ var {
 } = ReactNative;
 
 var MapView = require('react-native-maps');
-
+import AutoComplete from '../pockemons';
 var { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
@@ -58,18 +58,20 @@ var DefaultMarkers = React.createClass({
              transparent={true}
              visible={this.state.modalVisible}
              >
-            <View style={{flex: 1, alignItems: 'center', 'justifyContent': 'center'}}>
-             <View style={{ backgroundColor: 'white', padding: 50, }}>
-               <Text>What's the Pokemon here (choose from selectbox)?</Text>
-
-               <TouchableHighlight onPress={() => {
-                 this.props.actions.addNewPoint(this.state.newPoint, 'pikachu')
-                 this.setState({modalVisible: false})
-               }}>
-                 <Text style={{ fontSize: 20, color: 'blue' }}>Save!</Text>
-               </TouchableHighlight>
-
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+             <View style={styles.boxWrapper}>
+               <Text style={styles.someText}>What's the Pokemon here (choose from selectbox)?</Text>
+               <AutoComplete getPockemonName={(name) => this.setState({pockemonName: name})}/>
              </View>
+             <TouchableHighlight
+             style={styles.button}
+              onPress={() => {
+               this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName)
+               this.setState({modalVisible: false})
+              }
+            }>
+               <Text style={styles.buttonText}>Save!</Text>
+             </TouchableHighlight>
             </View>
            </Modal>
           <MapView
@@ -93,6 +95,13 @@ var DefaultMarkers = React.createClass({
 });
 
 var styles = StyleSheet.create({
+  boxWrapper: {
+    width: width * 0.8,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+  },
   container: {
     position: 'absolute',
     top: 0,
@@ -119,17 +128,37 @@ var styles = StyleSheet.create({
     width: 200,
     alignItems: 'stretch',
   },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
   buttonContainer: {
     flexDirection: 'row',
     marginVertical: 20,
     backgroundColor: 'transparent',
   },
+  button: {
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EE4027',
+    width: width,
+    left: 0,
+    padding: 20
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 20,
+    fontFamily: 'Helvetica-Light',
+    textAlign: 'center',
+    backgroundColor: 'transparent'
+  },
+  someText: {
+    fontFamily: 'Helvetica',
+    fontSize: 20,
+    color: '#333',
+    fontWeight: '700',
+    marginVertical: 10,
+    textAlign: 'center'
+  }
+
 });
 
 module.exports = DefaultMarkers;
