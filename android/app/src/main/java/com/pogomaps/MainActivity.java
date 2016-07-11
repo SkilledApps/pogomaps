@@ -1,9 +1,9 @@
 package com.pogomaps;
 
 import com.facebook.react.ReactActivity;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.airbnb.android.react.maps.MapsPackage;
 
 public class MainActivity extends ReactActivity {
 
