@@ -47,6 +47,38 @@ export function reducer(state = initialState, action = {}) {
       return nextState;
     }
 
+    case 'NEW_POINT': {
+      return {
+        ...state,
+        markers: state.markers.concat({
+          coordinate: action.coordinates,
+          pokemon: action.pokemon
+        }),
+        isLoading: true,
+      };
+    }
+
+    case 'POINT_ADDED': {
+      return {
+        ...state,
+        isLoading: false,
+      }
+    }
+
+    case 'POINTS_LOADED': {
+      return {
+        ...state,
+        isLoading: false,
+      }
+    }
+
+    case 'SET_POSITION': {
+      return {
+        ...state,
+        region: position.coords
+      }
+    }
+
     default: {
       nextState = {...state};
       return nextState;

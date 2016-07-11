@@ -7,6 +7,9 @@ var {
   Text,
   Dimensions,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Modal,
+  TouchableHighlight,
 } = ReactNative;
 
 var MapView = require('react-native-maps');
@@ -27,49 +30,64 @@ function randomColor() {
 var DefaultMarkers = React.createClass({
   getInitialState() {
     return {
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
-      markers: [],
+      modalVisible: false
     };
+  },
+
+  componentWillMount() {
+    navigator.geolocation.getCurrentPosition((position) => this.props.actions.setCurrentRegion(position),
+      (error) => alert(error.message),
+      {enableHighAccuracy: false, timeout: 20000, maximumAge: 10000}
+    );
+    this.props.actions.getPointsByTeamId('anonymous') // TODO: real name
   },
 
   onMapPress(e) {
     this.setState({
-      markers: [
-        ...this.state.markers,
-        {
-          coordinate: e.nativeEvent.coordinate,
-          key: id++,
-          color: randomColor(),
-        },
-      ],
-    });
+      modalVisible: true,
+      newPoint: e.nativeEvent.coordinate,
+    })
   },
 
   render() {
     return (
-      <View style={{flex: 1, width, height}}>
+      <TouchableWithoutFeedback style={{flex: 1, width, height}}>
         <View style={styles.container}>
+          <Modal
+             animationType={"slide"}
+             transparent={true}
+             visible={this.state.modalVisible}
+             >
+            <View style={{flex: 1, alignItems: 'center', 'justifyContent': 'center'}}>
+             <View style={{ backgroundColor: 'white', padding: 50, }}>
+               <Text>What's the Pokemon here (choose from selectbox)?</Text>
+
+               <TouchableHighlight onPress={() => {
+                 this.props.actions.addNewPoint(this.state.newPoint, 'pikachu')
+                 this.setState({modalVisible: false})
+               }}>
+                 <Text style={{ fontSize: 20, color: 'blue' }}>Save!</Text>
+               </TouchableHighlight>
+
+             </View>
+            </View>
+           </Modal>
           <MapView
             style={styles.map}
-            initialRegion={this.state.region}
-            onPress={this.onMapPress}
+            initialRegion={this.props.state.region}
+            onLongPress={this.onMapPress}
           >
-            {this.state.markers.map(marker => (
+            {this.props.state.markers.map((marker, i) => (
               <MapView.Marker
-                key={marker.key}
+                key={i}
                 coordinate={marker.coordinate}
-                pinColor={marker.color}
+                pinColor={marker.color || 'red'}
               />
             ))}
           </MapView>
 
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   },
 });

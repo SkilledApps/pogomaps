@@ -9,10 +9,9 @@ import MapView from './mapView';
 
 export default class Pogomaps extends Component {
   render() {
-    console.log('state',this.props.state);
     return (
       <View style={styles.container}>
-        <MapView {...this.props} style={{flex: 1}}/>
+        <MapView {...this.props} style={{flex: 1}} />
       </View>
     );
   }

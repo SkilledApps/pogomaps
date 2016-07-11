@@ -1,15 +1,15 @@
-export const apiEndPoints = () => {
-  /*
-    @description Get all map points for joined team
-  */
-  const getPointsByTeamId = (teamId) => {
-    return `http://api.hashley.com/points/${teamId}`;
-  };
+/* @flow */
+// const BASE_HOST = 'http://localhost:4000/pokemon/'
+const BASE_HOST = 'https://api.askhashley.com/pokemon/'
+/*
+  @description Get all map points for joined team
+*/
+export const getPointsByTeamId = (teamId) => {
+  return `${BASE_HOST}/points/?teamName=${teamId}`;
+};
 
-  /*
-    @description Put new point in joined team
-  */
-  const postNewPoint = (teamId, lat, lng) => {
-    return `http://api.hashley.com/points/${teamId, lat, lng}`;
-  }
-}
+export const addUserToTeam = `${BASE_HOST}/points`;
+/*
+  @description Put new point in joined team
+*/
+export const addNewPoint = `${BASE_HOST}/points/`;

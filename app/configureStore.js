@@ -10,11 +10,11 @@ import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
 
 const reducer = storage.reducer(combineReducers(reducers));
 const engine = createEngine('POGOMAP_V010');
-const middleware = storage.createMiddleware(engine);
+const storageMiddleware = storage.createMiddleware(engine);
 const logger = createLogger();
-const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, logger, storageMiddleware)(createStore);
 
-const store = createStoreWithMiddleware(reducer, applyMiddleware(thunk, logger));
+const store = createStoreWithMiddleware(reducer);
 
 export default class Pogomaps extends Component {
 	componentWillMount() {
