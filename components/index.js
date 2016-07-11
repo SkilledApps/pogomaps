@@ -36,9 +36,8 @@ export default class Pogomaps extends Component {
     return (
       <View style={styles.container}>
         <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete} />
-        {this.props.state.isMenuOpened &&<View style={styles.cover}></View>}
-        {this.props.state.isMenuOpened && <Menu {...this.props}/>}
-        {this.props.state.isMenuOpened && <Menu {...this.props}/>}
+        {!this.props.state.username && this.props.state.isMenuOpened &&<View style={styles.cover}></View>}
+        {!this.props.state.username && this.props.state.isMenuOpened && <Menu {...this.props}/>}
         <Header {...this.props} style={styles.header}/>
       </View>
     );
