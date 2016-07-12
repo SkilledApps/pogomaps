@@ -22,6 +22,7 @@ export default class Menu extends Component {
   handleEnter() {
     if (this.state.teamname.length > 0 && this.state.username.length > 0) {
       this.props.actions.signin(this.state.teamname, this.state.username);
+
     } else {
       alert('Fill the fields or close the dialog');
     }
