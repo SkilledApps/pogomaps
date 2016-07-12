@@ -18,38 +18,17 @@ export default class Pogomaps extends Component {
   constructor() {
     super();
   }
-
-  watchID: null;
-
+  
   componentWillMount() {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
     }
-
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-          var initialPosition = JSON.stringify(position);
-          this.setState({initialPosition});
-        },
-        (error) => alert(error.message),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        var lastPosition = position;
-        // if (!lastPosition.coords || !lastPosition.coords.latitude ||
-        //     !lastPosition.coords.longitude) {
-        //       return false;
-        //     }
-        this.props.actions.onRegionChange(lastPosition.coords);
-      });
   }
 
   componentWillUnmount() {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
     }
-
-    navigator.geolocation.clearWatch(this.watchID);
   }
 
   render() {

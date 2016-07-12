@@ -3,15 +3,6 @@ import React from 'react';
 import * as API from '../_constants/apiEndPoints';
 import * as types from './types';
 
-export function onRegionChange(region) {
-  console.log('region',region);
-  return dispatch =>
-    dispatch({
-      type: 'MAP_REGION_CHANGED',
-      payload: region
-    })
-}
-
 export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
 }

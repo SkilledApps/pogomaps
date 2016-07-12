@@ -57,10 +57,6 @@ var DefaultMarkers = React.createClass({
     });
   },
 
-  onRegionChange(region) {
-    this.props.actions.onRegionChange(region);
-  },
-
   render() {
     let aligment = this.state.isActiveField ? 'flex-start' : 'center';
     return (
@@ -95,8 +91,7 @@ var DefaultMarkers = React.createClass({
            </Modal>
           <MapView
             style={styles.map}
-            onRegionChange={(region) => this.onRegionChange(region)}
-            initialRegion={this.props.state.region}
+            region={this.props.state.region}
             onLongPress={this.onMapPress}
           >
             {this.props.state.markers.map((marker, i) => (
@@ -192,8 +187,9 @@ var styles = StyleSheet.create({
     left: 20
   },
   textShadow: {
-    textShadowColor: 'rgba(0,0,0,0.3)',
-    textShadowOffset: {width: 1, height: 1}
+    textShadowColor: 'rgba(0,0,0,0.5)',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 5
   }
 
 });
