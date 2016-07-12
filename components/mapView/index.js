@@ -41,12 +41,6 @@ var DefaultMarkers = React.createClass({
     this.props.actions.getPointsByTeamId(team) // TODO: real name
   },
 
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.isActiveField !== nextState.isActiveField) {
-      LayoutAnimation.linear();
-    }
-  },
-
   onMapPress(e) {
     this.setState({
       modalVisible: true,
@@ -55,42 +49,39 @@ var DefaultMarkers = React.createClass({
   },
 
   render() {
-    let aligment = this.state.isActiveField ? 'flex-start' : 'center';
     return (
-      <TouchableWithoutFeedback style={{flex: 1, width, height, paddingVertical: 20}}>
+      <View style={{flex: 1, width, height, paddingVertical: 20}}>
         <View style={styles.container}>
           <Modal
-             animationType={"slide"}
+             animationType={"fade"}
              transparent={true}
              visible={this.state.modalVisible}
              >
-            <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: aligment}}>
-              <TouchableOpacity style={styles.closeButton} onPress={() => this.setState({modalVisible: false})}>
-                <Icon style={styles.textShadow} name='close' size={35} color='#fff'/>
-              </TouchableOpacity>
-             <View style={styles.boxWrapper}>
-               <Text style={styles.someText}>Add the Pokemon location</Text>
-               <AutoComplete
-                  onFocus={() => this.setState({isActiveField: true})}
-                  onBlur={() => this.setState({isActiveField: false})}
-                  getPockemonName={(name) => this.setState({pockemonName: name})}/>
-             </View>
-             <TouchableHighlight
-              style={styles.button}
-              onPress={() => {
-                this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName);
-                this.setState({modalVisible: false});
-              }}>
-               <Text style={styles.buttonText}>Save!</Text>
-             </TouchableHighlight>
-            </View>
+            <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false, newPoint: null})}>
+              <View style={{flex: 1, alignItems: 'center', padding: 20, marginTop: 100, justifyContent: 'flex-start'}}>
+               <View style={styles.boxWrapper}>
+                 <Text style={styles.someText}>Add the Pokemon location</Text>
+                 <AutoComplete
+                    onFocus={() => this.setState({isActiveField: true})}
+                    onBlur={() => this.setState({isActiveField: false})}
+                    getPockemonName={(name) => this.setState({pockemonName: name})}/>
+               </View>
+               <TouchableHighlight
+                style={styles.button}
+                onPress={() => {
+                  this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName);
+                  this.setState({modalVisible: false, newPoint: null});
+                }}>
+                 <Text style={styles.buttonText}>Save!</Text>
+               </TouchableHighlight>
+              </View>
+            </TouchableWithoutFeedback>
            </Modal>
           <MapView
             showsUserLocation={true}
             followsUserLocation={true}
             loadingEnabled={true}
             style={styles.map}
-            region={this.props.state.region}
             onLongPress={this.onMapPress}
           >
             {this.props.state.markers.map((marker, i) => (
@@ -108,11 +99,18 @@ var DefaultMarkers = React.createClass({
               </MapView.Callout>
               </MapView.Marker>
             ))}
-            <Text style={[styles.screenText]}>Hold on screen to add new baloon</Text>
+            {this.state.newPoint && <MapView.Marker
+              key={1000}
+              image={require('./img/graypokeball.png')}
+              coordinate={this.state.newPoint}
+              pinColor={'gray'}
+              style={{width: 30, height: 30}}
+             />}
+            <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
           </MapView>
 
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     );
   },
 });

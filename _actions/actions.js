@@ -34,7 +34,7 @@ export function singin(team, username) {
 export function getPointsByTeamId(teamName) {
   return dispatch =>
     dispatch({type: 'LOAD_POINTS'})
-    fetch(API.getPointsByTeamId(teamName), {
+    return fetch(API.getPointsByTeamId(teamName), {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

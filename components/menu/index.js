@@ -36,8 +36,7 @@ export default class Menu extends Component {
             keyboardType='name-phone-pad'
             maxLength={20}
             onChangeText={(text) => this.setState({teamName: text})}
-            style={styles.input}
-            ></TextInput>
+            style={styles.input}></TextInput>
         </View>
         <View style={styles.menuItem}>
           <Icon name='perm-identity' size={35} color='#333'/>
@@ -66,7 +65,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     paddingTop: 10,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    position: 'absolute',
+    top: 0,
   },
   menuItem: {
     flexDirection: 'row',

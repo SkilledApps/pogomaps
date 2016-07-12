@@ -28,7 +28,8 @@ export function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD: {
       nextState = {
-        ...state
+        ...state,
+        region: state.region,
       }
       return nextState;
     }
