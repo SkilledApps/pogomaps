@@ -8,6 +8,10 @@ export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
 }
 
+export function resetErrorState() {
+  return dispatch => dispatch({type: 'ERROR_RESET'});
+}
+
 export function singin(team, username) {
   return dispatch =>
   fetch(API.addUserToTeam, {

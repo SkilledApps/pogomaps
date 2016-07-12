@@ -12,6 +12,7 @@ import Header from './header';
 import Menu from './menu';
 import AutoComplete from './pockemons';
 import Loader from './loader';
+import Notify from './notification';
 
 const {width, height} = Dimensions.get('window');
 
@@ -32,6 +33,15 @@ export default class Pogomaps extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.state.isError === true && nextProps.state.isError !== this.props.state.isError) {
+      this.resetTimeout = setTimeout(() => {
+        this.props.actions.resetErrorState();
+        clearTimeout(this.resetTimeout);
+      }, 2000)
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -46,6 +56,13 @@ export default class Pogomaps extends Component {
             this.props.state.isLoading && <Loader style={styles.loader}/>
           */
         }
+        {this.props.state.isError &&
+          <Notify
+            bgColor='#EE4027'
+            textColor='#fff'
+            message='Network error, please try again'
+            style={{position: 'absolute', bottom: 0, left: 0, right: 0}}
+          />}
       </View>
     );
   }

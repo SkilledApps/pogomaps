@@ -122,10 +122,18 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         isLoading: true,
       }
-
+    case 'ERROR_RESET' : {
+      nextState = {
+        ...state,
+        isError: false
+      }
+      return nextState;
+    }
+    
     case 'NETWORK_ERROR': {
       return {
         ...state,
+        isError: true,
         isMenuOpened: false,
         isLoading: false,
       }

@@ -13,10 +13,10 @@ export default class Menu extends Component {
     }
   }
 
-  state: {
-    teamName: string;
-    userName: string;
-  };
+  // state: {
+  //   teamName: string;
+  //   userName: string;
+  // };
 
   handleEnter() {
     if (this.state.teamName.length > 0 && this.state.userName.length > 0) {
