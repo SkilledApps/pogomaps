@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import MapView from './mapView';
 import Header from './header';
@@ -17,9 +18,7 @@ export default class Pogomaps extends Component {
   constructor() {
     super();
   }
-  defaltProps = {
-    isMenuOpened: false
-  };
+
   componentWillMount() {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
@@ -36,7 +35,8 @@ export default class Pogomaps extends Component {
     return (
       <View style={styles.container}>
         <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete} />
-        {!this.props.state.username && this.props.state.isMenuOpened &&<View style={styles.cover}></View>}
+        {!this.props.state.username && this.props.state.isMenuOpened &&
+            <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}></TouchableOpacity>}
         {!this.props.state.username && this.props.state.isMenuOpened && <Menu {...this.props}/>}
         <Header {...this.props} style={styles.header}/>
       </View>

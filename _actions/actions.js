@@ -32,8 +32,29 @@ export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
 }
 
+export function singin(team, username) {
+  return dispatch =>
+    dispatch({type: 'ADD_TEAM'})
+    fetch(API.addUserToTeam, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        team,
+        username
+      })
+    })
+    .then(res => res.json())
+    .then(res => getPointsByTeamId(teamName)(dispatch))
+    .then(res => dispatch({type: 'TEAM_ADDED'}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+}
+
 export function getPointsByTeamId(teamName) {
   return dispatch =>
+    dispatch({type: 'LOAD_POINTS'})
     fetch(API.getPointsByTeamId(teamName), {
       headers: {
         'Accept': 'application/json',

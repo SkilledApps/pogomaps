@@ -68,7 +68,7 @@ var DefaultMarkers = React.createClass({
              >
             <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: aligment}}>
              <View style={styles.boxWrapper}>
-               <Text style={styles.someText}>What's the Pokemon here (choose from selectbox)?</Text>
+               <Text style={styles.someText}>Add the Pokemon location</Text>
                <AutoComplete
                   onFocus={() => this.setState({isActiveField: true})}
                   onBlur={() => this.setState({isActiveField: false})}
@@ -100,7 +100,7 @@ var DefaultMarkers = React.createClass({
               >
               <MapView.Callout>
                 <View>
-                  <Text>{marker.pockemon}</Text>
+                  <Text>{marker.pokemon}</Text>
                 </View>
               </MapView.Callout>
               </MapView.Marker>

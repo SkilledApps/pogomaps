@@ -1,3 +1,4 @@
+/* @flow */
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Dimensions, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -6,13 +7,22 @@ const {width, height} = Dimensions.get('window');
 export default class Menu extends Component {
   constructor() {
     super();
+    this.state = {
+      teamName: '',
+      userName: '',
+    }
   }
 
+  state: {
+    teamName: string;
+    userName: string;
+  };
+
   handleEnter() {
-    if (!!this.state.teamName) {
-      this.props.actions.getPointsByTeamId(this.state.teamName);
+    if (this.state.teamName && this.state.userName) {
+      this.props.actions.singin(this.state.teamName, this.state.userName);
     } else {
-      alert('Enter team name or close menu');
+      alert('Fill the fields or close the dialog');
     }
   }
 
@@ -25,7 +35,7 @@ export default class Menu extends Component {
             placeholder='Team name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChange={(text) => this.setState({teamName: text})}
+            onChangeText={(text) => this.setState({teamName: text})}
             style={styles.input}
             ></TextInput>
         </View>
@@ -35,7 +45,7 @@ export default class Menu extends Component {
             placeholder='Your name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChange={(text) => this.setState({userName: text})}
+            onChangeText={(text) => this.setState({userName: text})}
             style={styles.input}
             ></TextInput>
         </View>

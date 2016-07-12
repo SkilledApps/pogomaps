@@ -1,6 +1,6 @@
 /* @flow */
-// const BASE_HOST = 'http://localhost:4000/pokemon/'
-const BASE_HOST = 'https://api.askhashley.com/pokemon/'
+//const BASE_HOST = 'http://localhost:4000/pokemon'
+const BASE_HOST = 'https://api.askhashley.com/pokemon'
 /*
   @description Get all map points for joined team
 */
@@ -8,7 +8,7 @@ export const getPointsByTeamId = (teamId) => {
   return `${BASE_HOST}/points/?teamName=${teamId}`;
 };
 
-export const addUserToTeam = `${BASE_HOST}/points`;
+export const addUserToTeam = `${BASE_HOST}/teams`;
 /*
   @description Put new point in joined team
 */
