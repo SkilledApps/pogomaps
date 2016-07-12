@@ -16,8 +16,8 @@ export default class Header extends Component {
     return(
       <View style={[styles.container, this.props.styles]}>
         <Text></Text>
-        <TouchableOpacity onPress={() => this.handleLeftButton()}>
-          <Icon style={styles.textShadow} name='menu' size={35} color="#fff"/>
+        <TouchableOpacity style={styles.button} onPress={() => this.handleLeftButton()}>
+          <Icon name='menu' size={35} color="#333"/>
         </TouchableOpacity>
       </View>
     )
@@ -26,9 +26,9 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    height: 50,
+    paddingTop: 10,
+    paddingHorizontal: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     position: 'absolute',
@@ -40,5 +40,14 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.3)',
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 2
+  },
+  button: {
+    borderRadius: 25,
+    height: 50,
+    width: 50,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
