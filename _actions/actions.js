@@ -32,8 +32,9 @@ export function singin(team, username) {
 }
 
 export function getPointsByTeamId(teamName) {
-  return dispatch =>
+  return dispatch => {
     dispatch({type: 'LOAD_POINTS'})
+    console.log('fetch', API.getPointsByTeamId(teamName))
     return fetch(API.getPointsByTeamId(teamName), {
       headers: {
         'Accept': 'application/json',
@@ -43,6 +44,7 @@ export function getPointsByTeamId(teamName) {
     .then(res => res.json())
     .then(res => dispatch({type: 'POINTS_LOADED', points: res}))
     .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+  }
 }
 
 export function addNewPoint(coordinates, pokemon) {

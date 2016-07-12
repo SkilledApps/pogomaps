@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactNative = require('react-native');
+var moment = require('moment')
 var {
   StyleSheet,
   PropTypes,
@@ -63,7 +64,7 @@ var DefaultMarkers = React.createClass({
                  <View style={{position: 'absolute', top: 0, width: 1000, height: 1000, flex: 1}} />
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
-                 <Text style={styles.someText}>Add the Pokemon location</Text>
+                 <Text style={styles.someText}>Add location</Text>
                  <AutoComplete
                     onFocus={() => this.setState({isActiveField: true})}
                     onBlur={() => this.setState({isActiveField: false})}
@@ -95,12 +96,9 @@ var DefaultMarkers = React.createClass({
                 coordinate={marker.coordinate}
                 pinColor={marker.color || 'red'}
                 style={{width: 30, height: 30}}
+                title={`${marker.pokemon}`}
+                description={`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
               >
-              <MapView.Callout style={{width: 140}}>
-                <View style={{width: 140}}>
-                  <Text style={{width: 140, textAlign: 'center'}}>{marker.pokemon}</Text>
-                </View>
-              </MapView.Callout>
               </MapView.Marker>
             ))}
             {this.state.newPoint && <MapView.Marker
@@ -126,7 +124,7 @@ var styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 20,
     paddingHorizontal: 15,
-    marginTop: 100,
+    marginTop: 20,
   },
   container: {
     position: 'absolute',
@@ -160,12 +158,13 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   button: {
-    // position: 'absolute',
-    // bottom: 0,
+    position: 'absolute',
+    bottom: 0,
+    //marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#EE4027',
-    width: width* 0.8,
+    width: width,
     left: 0,
     padding: 20
   },

@@ -33,7 +33,7 @@ export default class AutoComplete extends Component {
             onFocus={() => this.props.onFocus()}
             onBlur={() => this.props.onBlur()}
             suggestions={this.state.data}
-            placeholder='Choose a pockemon'
+            placeholder='Select'
             style={styles.autocomplete}
             clearButtonMode='always'
             returnKeyType='go'

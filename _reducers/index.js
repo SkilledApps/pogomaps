@@ -8,9 +8,8 @@ const initialState = {
   isLoading: false,
   isMenuOpened: false,
   user: {
-    teamName: '',
-    teamId: '',
-    username: '',
+    teamName: 'anonymous',
+    username: 'anonymous',
   },
   markers: [],
   defaultPosition: {lat: 37.78825, lng: -122.4324},
@@ -60,7 +59,9 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         markers: state.markers.concat({
           coordinate: action.coordinates,
-          pokemon: action.pokemon
+          pokemon: action.pokemon,
+          username: state.user.username || 'anonymous',
+          createdAt: new Date(),
         }),
         isLoading: true,
       };
@@ -76,6 +77,14 @@ export function reducer(state = initialState, action = {}) {
     case 'POINTS_LOADED': {
       return {
         ...state,
+        markers: action.payload.map(item => {
+          return {
+            coordinate: item.point,
+            pokemon: item.pokemon,
+            username: item.username,
+            createdAt: item.created_at,
+          }
+        }),
         isLoading: false,
       }
     }

@@ -1,6 +1,6 @@
 /* @flow */
 //const BASE_HOST = 'http://localhost:4000/pokemon'
-const BASE_HOST = 'https://api.askhashley.com/pokemon'
+const BASE_HOST = 'http://api.askhashley.com/pokemon'
 /*
   @description Get all map points for joined team
 */
