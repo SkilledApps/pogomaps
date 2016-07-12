@@ -76,18 +76,22 @@ export function reducer(state = initialState, action = {}) {
     }
 
     case 'POINTS_LOADED': {
-      return {
-        ...state,
-        isLoading: false,
-        markers: action.payload.map(item => {
-          return {
-            coordinate: item.point,
-            pokemon: item.pokemon,
-            username: item.username,
-            createdAt: item.created_at,
-          }
-        })
+      if (action.payload && action.payload.points.length > 0) {
+        return {
+          ...state,
+          isLoading: false,
+          markers: action.payload.points.map(item => {
+            return {
+              coordinate: item.point,
+              pokemon: item.pokemon,
+              username: item.username,
+              createdAt: item.created_at,
+            }
+          })
+        }
       }
+      return state;
+
     }
 
     case 'SET_POSITION': {
@@ -119,10 +123,10 @@ export function reducer(state = initialState, action = {}) {
     case 'ADD_TEAM': {
       nextState = {
         ...state,
-        isLoading: false,
+        isLoading: true,
         user: {
-          ...state.user,
-          ...action.payload
+          teamName: action.team,
+          username: action.username,
         }
       }
     }

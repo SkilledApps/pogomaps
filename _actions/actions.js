@@ -26,9 +26,11 @@ export function singin(team, username) {
         username
       })
     })
-    .then(res => { dispatch({type: 'ADD_TEAM', payload: {teamname: team, username}}); res.json(); })
-    .then(res => getPointsByTeamId(team)(dispatch))
-    .then(res => dispatch({type: 'TEAM_ADDED'}))
+    .then(res => { dispatch({type: 'ADD_TEAM', team, username });
+    if (res.status === 200) {
+      getPointsByTeamId(team)(dispatch)
+      dispatch({type: 'TEAM_ADDED'})
+    } })
     .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
   }
 }
@@ -36,7 +38,6 @@ export function singin(team, username) {
 export function getPointsByTeamId(teamName) {
   return dispatch => {
     dispatch({type: 'LOAD_POINTS'})
-    console.log('fetch', API.getPointsByTeamId(teamName))
     return fetch(API.getPointsByTeamId(teamName), {
       headers: {
         'Accept': 'application/json',
