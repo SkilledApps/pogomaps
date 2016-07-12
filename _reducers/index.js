@@ -80,6 +80,29 @@ export function reducer(state = initialState, action = {}) {
       }
     }
 
+    case 'TEAM_ADDED': {
+      return {
+        ...state,
+        isMenuOpened: false,
+        isLoading: false,
+      }
+    }
+
+    case 'ADD_TEAM':
+    case 'LOAD_POINTS':
+      return {
+        ...state,
+        isLoading: true,
+      }
+
+    case 'NETWORK_ERROR': {
+      return {
+        ...state,
+        isMenuOpened: false,
+        isLoading: false,
+      }
+    }
+
     case types.TOGGLE_MENU : {
       nextState = {
         ...state,

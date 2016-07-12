@@ -19,10 +19,10 @@ export default class Menu extends Component {
   };
 
   handleEnter() {
-    if (!!this.state.teamName) {
-      this.props.actions.getPointsByTeamId(this.state.teamName);
+    if (this.state.teamName && this.state.userName) {
+      this.props.actions.singin(this.state.teamName, this.state.userName);
     } else {
-      alert('Enter team name or close menu');
+      alert('Fill the fields or close the dialog');
     }
   }
 
@@ -35,7 +35,7 @@ export default class Menu extends Component {
             placeholder='Team name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChange={(text) => this.setState({teamName: text})}
+            onChangeText={(text) => this.setState({teamName: text})}
             style={styles.input}
             ></TextInput>
         </View>
@@ -45,7 +45,7 @@ export default class Menu extends Component {
             placeholder='Your name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChange={(text) => this.setState({userName: text})}
+            onChangeText={(text) => this.setState({userName: text})}
             style={styles.input}
             ></TextInput>
         </View>
