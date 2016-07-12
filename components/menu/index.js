@@ -30,7 +30,7 @@ export default class Menu extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.menuItem}>
-          <Icon name='perm-identity' size={35} color='#333'/>
+          <Icon name='people' size={35} color='#333'/>
           <TextInput
             placeholder='Team name'
             keyboardType='name-phone-pad'
@@ -40,7 +40,7 @@ export default class Menu extends Component {
             ></TextInput>
         </View>
         <View style={styles.menuItem}>
-          <Icon name='people' size={35} color='#333'/>
+          <Icon name='perm-identity' size={35} color='#333'/>
           <TextInput
             placeholder='Your name'
             keyboardType='name-phone-pad'

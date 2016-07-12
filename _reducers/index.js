@@ -48,7 +48,24 @@ export function reducer(state = initialState, action = {}) {
       return nextState;
     }
 
+    case 'MAP_REGION_CHANGED' : {
+      nextState = {
+        ...state,
+        region: {
+          ...state.region,
+          longitude: action.payload.latitude,
+          longitude: action.payload.longitude
+        }
+      }
+    }
+
     case 'NEW_POINT': {
+      if (!action.pokemon || action.pokemon.length === 0) {
+        return {
+          ...state
+        }
+      }
+
       return {
         ...state,
         markers: state.markers.concat({

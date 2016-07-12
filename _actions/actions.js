@@ -3,31 +3,15 @@ import React from 'react';
 import * as API from '../_constants/apiEndPoints';
 import * as types from './types';
 
-//
-// function authStart(login, teamName) {
-//   return (dispatch) => {
-//     return {
-//       type: types.AUTH_START
-//     }
-//   }
-// }
-//
-// function authPending() {
-//   return (dispatch) => {
-//     return {
-//       type: types.AUTH_PENDING
-//     }
-//   }
-// }
-//
-//
-// function authSuccess() {
-//   return (dispatch) => {
-//     return {
-//       type: types.AUTH_SUCCESS
-//     }
-//   }
-// }
+export function onRegionChange(region) {
+  console.log('region',region);
+  return dispatch =>
+    dispatch({
+      type: 'MAP_REGION_CHANGED',
+      payload: region
+    })
+}
+
 export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
 }

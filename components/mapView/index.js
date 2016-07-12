@@ -15,6 +15,7 @@ var {
 
 var MapView = require('react-native-maps');
 import AutoComplete from '../pockemons';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 var { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
@@ -56,6 +57,10 @@ var DefaultMarkers = React.createClass({
     });
   },
 
+  onRegionChange(region) {
+    this.props.actions.onRegionChange(region);
+  },
+
   render() {
     let aligment = this.state.isActiveField ? 'flex-start' : 'center';
     return (
@@ -67,6 +72,9 @@ var DefaultMarkers = React.createClass({
              visible={this.state.modalVisible}
              >
             <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: aligment}}>
+              <TouchableOpacity style={styles.closeButton} onPress={() => this.setState({modalVisible: false})}>
+                <Icon style={styles.textShadow} name='close' size={35} color='#fff'/>
+              </TouchableOpacity>
              <View style={styles.boxWrapper}>
                <Text style={styles.someText}>Add the Pokemon location</Text>
                <AutoComplete
@@ -87,6 +95,7 @@ var DefaultMarkers = React.createClass({
            </Modal>
           <MapView
             style={styles.map}
+            onRegionChange={(region) => this.onRegionChange(region)}
             initialRegion={this.props.state.region}
             onLongPress={this.onMapPress}
           >
@@ -176,6 +185,15 @@ var styles = StyleSheet.create({
     fontWeight: '700',
     marginVertical: 10,
     textAlign: 'center'
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20
+  },
+  textShadow: {
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: {width: 1, height: 1}
   }
 
 });
