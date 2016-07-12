@@ -2,6 +2,7 @@
 import React from 'react';
 import * as API from '../_constants/apiEndPoints';
 import * as types from './types';
+import httpClient from '../_constants/httpClient'
 
 export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
@@ -9,22 +10,25 @@ export function toggleMenu() {
 
 export function singin(team, username) {
   return dispatch =>
-    dispatch({type: 'ADD_TEAM'})
-    fetch(API.addUserToTeam, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        team,
-        username
-      })
+  fetch(API.addUserToTeam, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      team,
+      username
     })
-    .then(res => res.json())
-    .then(res => getPointsByTeamId(teamName)(dispatch))
-    .then(res => dispatch({type: 'TEAM_ADDED'}))
-    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+  })
+  .then(res => { dispatch({type: 'ADD_TEAM', payload: {isLoading: true}}); res.json(); })
+  .then(res => getPointsByTeamId(teamName)(dispatch))
+  .then(res => dispatch({type: 'TEAM_ADDED'}))
+  .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+      // .then(res => {dispatch({type: 'ADD_TEAM', payload: {isLoading: true}}); res.json();})
+      // .then(res => getPointsByTeamId(teamName)(dispatch))
+      // .then(res => dispatch({type: 'TEAM_ADDED', payload: {teamName, username}}))
+      // .catch(error =>  dispatch({type: 'NETWORK_ERROR', payload: {error, isLoading: false}}));
 }
 
 export function getPointsByTeamId(teamName) {

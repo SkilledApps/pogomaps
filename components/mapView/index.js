@@ -37,11 +37,8 @@ var DefaultMarkers = React.createClass({
   },
 
   componentWillMount() {
-    navigator.geolocation.getCurrentPosition((position) => this.props.actions.setCurrentRegion(position),
-      (error) => alert(error.message),
-      {enableHighAccuracy: false, timeout: 20000, maximumAge: 10000}
-    );
-    this.props.actions.getPointsByTeamId('anonymous') // TODO: real name
+    let team = this.props.state.teamName ? this.props.state.teamName : 'anonymous';
+    this.props.actions.getPointsByTeamId(team) // TODO: real name
   },
 
   componentWillUpdate(nextProps, nextState) {
@@ -90,6 +87,9 @@ var DefaultMarkers = React.createClass({
             </View>
            </Modal>
           <MapView
+            showsUserLocation={true}
+            followsUserLocation={true}
+            loadingEnabled={true}
             style={styles.map}
             region={this.props.state.region}
             onLongPress={this.onMapPress}

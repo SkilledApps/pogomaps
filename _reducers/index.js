@@ -10,7 +10,7 @@ const initialState = {
   user: {
     teamName: '',
     teamId: '',
-    userName: '',
+    username: '',
   },
   markers: [],
   defaultPosition: {lat: 37.78825, lng: -122.4324},
@@ -87,14 +87,25 @@ export function reducer(state = initialState, action = {}) {
     }
 
     case 'TEAM_ADDED': {
-      return {
+      nextState = {
         ...state,
         isMenuOpened: false,
         isLoading: false,
-      }
+        user: {
+          ...state.user,
+          ...action.payload
+        }
+      };
+
+      return nextState;
     }
 
-    case 'ADD_TEAM':
+    case 'ADD_TEAM': {
+      nextState = {
+        ...state,
+        ...action.payload
+      }
+    }
     case 'LOAD_POINTS':
       return {
         ...state,

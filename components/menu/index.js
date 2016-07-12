@@ -19,7 +19,7 @@ export default class Menu extends Component {
   };
 
   handleEnter() {
-    if (this.state.teamName && this.state.userName) {
+    if (this.state.teamName.length > 0 && this.state.userName.length > 0) {
       this.props.actions.singin(this.state.teamName, this.state.userName);
     } else {
       alert('Fill the fields or close the dialog');
