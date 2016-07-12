@@ -121,6 +121,7 @@ export function reducer(state = initialState, action = {}) {
       }
     }
     case 'ADD_TEAM': {
+      console.log('ADD_TEAM', {team: action.team, username: action.username})
       nextState = {
         ...state,
         isLoading: true,
@@ -129,6 +130,7 @@ export function reducer(state = initialState, action = {}) {
           username: action.username,
         }
       }
+      return nextState;
     }
     case 'LOAD_POINTS':
       return {
