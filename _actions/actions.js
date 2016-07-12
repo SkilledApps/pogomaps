@@ -12,7 +12,7 @@ export function resetErrorState() {
   return dispatch => dispatch({type: 'ERROR_RESET'});
 }
 
-export function singin(team, username) {
+export function signin(team, username) {
   return dispatch => {
     dispatch({type: 'ADD_TEAM_START'});
     fetch(API.addUserToTeam, {

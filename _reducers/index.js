@@ -106,26 +106,16 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         isMenuOpened: false,
         isLoading: false,
-        user: {
-          ...state.user,
-          ...action.payload
-        }
       };
 
       return nextState;
     }
-    case 'ADD_TEAM_START' : {
-      return {
-        ...state,
-        isLoading: true
-      }
-    }
     case 'ADD_TEAM': {
-      nextState = {
+      return {
         ...state,
         isLoading: true,
         user: {
-          teamName: action.team,
+          teamname: action.team,
           username: action.username,
         }
       }

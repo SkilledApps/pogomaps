@@ -5,22 +5,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 const {width, height} = Dimensions.get('window');
 
 export default class Menu extends Component {
-  constructor() {
+  constructor(props) {
     super();
+    console.log(props.state.user)
     this.state = {
-      teamName: '',
-      userName: '',
+      teamname: props.state.user.teamname === 'anonymous' ? '' : props.state.user.teamname,
+      username: props.state.user.username === 'anonymous' ? '' : props.state.user.username,
     }
   }
 
-  // state: {
-  //   teamName: string;
-  //   userName: string;
-  // };
+  state: {
+    teamname: string;
+    username: string;
+  };
 
   handleEnter() {
     if (this.state.teamname.length > 0 && this.state.username.length > 0) {
-      this.props.actions.singin(this.state.teamName, this.state.userName);
+      this.props.actions.signin(this.state.teamname, this.state.username);
     } else {
       alert('Fill the fields or close the dialog');
     }
@@ -35,7 +36,8 @@ export default class Menu extends Component {
             placeholder='Team name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChangeText={(text) => this.setState({teamName: text})}
+            value={this.state.teamname}
+            onChangeText={(text) => this.setState({teamname: text})}
             style={styles.input}></TextInput>
         </View>
         <View style={styles.menuItem}>
@@ -44,7 +46,8 @@ export default class Menu extends Component {
             placeholder='Your name'
             keyboardType='name-phone-pad'
             maxLength={20}
-            onChangeText={(text) => this.setState({userName: text})}
+            value={this.state.username}
+            onChangeText={(text) => this.setState({username: text})}
             style={styles.input}
             ></TextInput>
         </View>
