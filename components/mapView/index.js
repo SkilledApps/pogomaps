@@ -58,9 +58,9 @@ var DefaultMarkers = React.createClass({
              transparent={true}
              visible={this.state.modalVisible}
              >
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1, alignItems: 'center'}}>
              <View style={styles.boxWrapper}>
-               <Text style={styles.someText}>What's the Pokemon here (choose from selectbox)?</Text>
+               <Text style={styles.someText}>Add the Pokemon location</Text>
                <AutoComplete getPockemonName={(name) => this.setState({pockemonName: name})}/>
              </View>
              <TouchableHighlight

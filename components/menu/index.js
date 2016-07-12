@@ -1,3 +1,4 @@
+/* @flow */
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Dimensions, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -6,7 +7,16 @@ const {width, height} = Dimensions.get('window');
 export default class Menu extends Component {
   constructor() {
     super();
+    this.state = {
+      teamName: '',
+      userName: '',
+    }
   }
+
+  state: {
+    teamName: string;
+    userName: string;
+  };
 
   handleEnter() {
     if (!!this.state.teamName) {
