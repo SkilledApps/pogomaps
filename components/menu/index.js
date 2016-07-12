@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     paddingTop: 10,
     paddingHorizontal: 15,
-    position: 'absolute',
-    top: 0,
+    // position: 'absolute',
+    // top: 0,
   },
   menuItem: {
     flexDirection: 'row',

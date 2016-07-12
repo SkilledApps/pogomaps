@@ -51,7 +51,8 @@ export function reducer(state = initialState, action = {}) {
     case 'NEW_POINT': {
       if (!action.pokemon || action.pokemon.length === 0) {
         return {
-          ...state
+          ...state,
+          isLoading: false
         }
       }
 
@@ -77,6 +78,7 @@ export function reducer(state = initialState, action = {}) {
     case 'POINTS_LOADED': {
       return {
         ...state,
+        isLoading: false,
         markers: action.payload.map(item => {
           return {
             coordinate: item.point,
@@ -84,8 +86,7 @@ export function reducer(state = initialState, action = {}) {
             username: item.username,
             createdAt: item.created_at,
           }
-        }),
-        isLoading: false,
+        })
       }
     }
 

@@ -85,7 +85,6 @@ var DefaultMarkers = React.createClass({
           <MapView
             showsUserLocation={true}
             followsUserLocation={true}
-            loadingEnabled={true}
             style={styles.map}
             onLongPress={this.onMapPress}
           >
