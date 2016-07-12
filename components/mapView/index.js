@@ -10,6 +10,7 @@ var {
   TouchableWithoutFeedback,
   Modal,
   TouchableHighlight,
+  LayoutAnimation
 } = ReactNative;
 
 var MapView = require('react-native-maps');
@@ -42,26 +43,36 @@ var DefaultMarkers = React.createClass({
     this.props.actions.getPointsByTeamId('anonymous') // TODO: real name
   },
 
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.isActiveField !== nextState.isActiveField) {
+      LayoutAnimation.linear();
+    }
+  },
+
   onMapPress(e) {
     this.setState({
       modalVisible: true,
       newPoint: e.nativeEvent.coordinate,
-    })
+    });
   },
 
   render() {
+    let aligment = this.state.isActiveField ? 'flex-start' : 'center';
     return (
-      <TouchableWithoutFeedback style={{flex: 1, width, height}}>
+      <TouchableWithoutFeedback style={{flex: 1, width, height, paddingVertical: 20}}>
         <View style={styles.container}>
           <Modal
              animationType={"slide"}
              transparent={true}
              visible={this.state.modalVisible}
              >
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1, alignItems: 'center', padding: 20, justifyContent: aligment}}>
              <View style={styles.boxWrapper}>
                <Text style={styles.someText}>What's the Pokemon here (choose from selectbox)?</Text>
-               <AutoComplete getPockemonName={(name) => this.setState({pockemonName: name})}/>
+               <AutoComplete
+                  onFocus={() => this.setState({isActiveField: true})}
+                  onBlur={() => this.setState({isActiveField: false})}
+                  getPockemonName={(name) => this.setState({pockemonName: name})}/>
              </View>
              <TouchableHighlight
              style={styles.button}
@@ -82,9 +93,17 @@ var DefaultMarkers = React.createClass({
             {this.props.state.markers.map((marker, i) => (
               <MapView.Marker
                 key={i}
+                image={require('./img/pokeball.png')}
                 coordinate={marker.coordinate}
                 pinColor={marker.color || 'red'}
-              />
+                style={{width: 30, height: 30}}
+              >
+              <MapView.Callout>
+                <View>
+                  <Text>{marker.pockemon}</Text>
+                </View>
+              </MapView.Callout>
+              </MapView.Marker>
             ))}
           </MapView>
 

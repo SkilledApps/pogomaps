@@ -30,6 +30,8 @@ export default class AutoComplete extends Component {
           <AutoCompletePlugin
             onTyping={(text) => this.onTyping(text)}
             onSelect={(e) => this.props.getPockemonName(e)}
+            onFocus={() => this.props.onFocus()}
+            onBlur={() => this.props.onBlur()}
             suggestions={this.state.data}
             placeholder='Choose a pockemon'
             style={styles.autocomplete}
