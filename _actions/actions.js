@@ -13,26 +13,24 @@ export function resetErrorState() {
 }
 
 export function singin(team, username) {
-  return dispatch =>
-  fetch(API.addUserToTeam, {
-    method: 'PUT',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      team,
-      username
+  return dispatch => {
+    dispatch({type: 'ADD_TEAM_START'});
+    fetch(API.addUserToTeam, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        team,
+        username
+      })
     })
-  })
-  .then(res => { dispatch({type: 'ADD_TEAM', payload: {isLoading: true}}); res.json(); })
-  .then(res => getPointsByTeamId(teamName)(dispatch))
-  .then(res => dispatch({type: 'TEAM_ADDED'}))
-  .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
-      // .then(res => {dispatch({type: 'ADD_TEAM', payload: {isLoading: true}}); res.json();})
-      // .then(res => getPointsByTeamId(teamName)(dispatch))
-      // .then(res => dispatch({type: 'TEAM_ADDED', payload: {teamName, username}}))
-      // .catch(error =>  dispatch({type: 'NETWORK_ERROR', payload: {error, isLoading: false}}));
+    .then(res => { dispatch({type: 'ADD_TEAM', payload: {teamname: team, username}}); res.json(); })
+    .then(res => getPointsByTeamId(team)(dispatch))
+    .then(res => dispatch({type: 'TEAM_ADDED'}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+  }
 }
 
 export function getPointsByTeamId(teamName) {

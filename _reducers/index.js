@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
   isMenuOpened: false,
   user: {
-    teamName: 'anonymous',
+    teamname: 'anonymous',
     username: 'anonymous',
   },
   markers: [],
@@ -110,11 +110,20 @@ export function reducer(state = initialState, action = {}) {
 
       return nextState;
     }
-
+    case 'ADD_TEAM_START' : {
+      return {
+        ...state,
+        isLoading: true
+      }
+    }
     case 'ADD_TEAM': {
       nextState = {
         ...state,
-        ...action.payload
+        isLoading: false,
+        user: {
+          ...state.user,
+          ...action.payload
+        }
       }
     }
     case 'LOAD_POINTS':
@@ -129,7 +138,7 @@ export function reducer(state = initialState, action = {}) {
       }
       return nextState;
     }
-    
+
     case 'NETWORK_ERROR': {
       return {
         ...state,

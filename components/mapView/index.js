@@ -38,7 +38,7 @@ var DefaultMarkers = React.createClass({
   },
 
   componentWillMount() {
-    let team = this.props.state.teamName ? this.props.state.teamName : 'anonymous';
+    let team = this.props.state.user.teamName ? this.props.state.user.teamName : 'anonymous';
     this.props.actions.getPointsByTeamId(team) // TODO: real name
   },
 
@@ -59,9 +59,9 @@ var DefaultMarkers = React.createClass({
              visible={this.state.modalVisible}
              onRequestClose={() => this.setState({modalVisible: false, newPoint: null})}
              >
-              <View style={{flex: 1, alignItems: 'center', padding: 20, marginTop: 0, justifyContent: 'flex-start'}}>
+              <View style={{flex: 1, alignItems: 'center', paddingTop: 100, padding: 20, marginTop: 0, justifyContent: 'flex-start'}}>
                 <TouchableOpacity style={{position: 'absolute', top: 0, left: 0, }} onPress={() => this.setState({modalVisible: false, newPoint: null})}>
-                 <View style={{position: 'absolute', top: 0, width: 1000, height: 1000, flex: 1}} />
+                 <View style={{position: 'absolute', top: 0, width: width, height: height, flex: 1}} />
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
                  <Text style={styles.someText}>Add location</Text>
