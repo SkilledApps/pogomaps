@@ -76,12 +76,11 @@ var DefaultMarkers = React.createClass({
                   getPockemonName={(name) => this.setState({pockemonName: name})}/>
              </View>
              <TouchableHighlight
-             style={styles.button}
+              style={styles.button}
               onPress={() => {
-               this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName)
-               this.setState({modalVisible: false})
-              }
-            }>
+                this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName);
+                this.setState({modalVisible: false});
+              }}>
                <Text style={styles.buttonText}>Save!</Text>
              </TouchableHighlight>
             </View>
@@ -109,6 +108,7 @@ var DefaultMarkers = React.createClass({
               </MapView.Callout>
               </MapView.Marker>
             ))}
+            <Text style={[styles.screenText]}>Hold on screen to add new baloon</Text>
           </MapView>
 
         </View>
@@ -190,6 +190,18 @@ var styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.5)',
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 5
+  },
+  screenText: {
+    fontSize: 15,
+    fontFamily: 'Helvetica',
+    color: '#333',
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: 10,
+    left: 0,
+    right: 0,
+    width: width,
+
   }
 
 });
