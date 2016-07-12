@@ -98,9 +98,9 @@ var DefaultMarkers = React.createClass({
                 pinColor={marker.color || 'red'}
                 style={{width: 30, height: 30}}
               >
-              <MapView.Callout>
-                <View>
-                  <Text>{marker.pokemon}</Text>
+              <MapView.Callout style={{width: 140}}>
+                <View style={{width: 140}}>
+                  <Text style={{width: 140, textAlign: 'center'}}>{marker.pokemon}</Text>
                 </View>
               </MapView.Callout>
               </MapView.Marker>
