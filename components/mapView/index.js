@@ -56,9 +56,12 @@ var DefaultMarkers = React.createClass({
              animationType={"fade"}
              transparent={true}
              visible={this.state.modalVisible}
+             onRequestClose={() => this.setState({modalVisible: false, newPoint: null})}
              >
-            <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false, newPoint: null})}>
-              <View style={{flex: 1, alignItems: 'center', padding: 20, marginTop: 100, justifyContent: 'flex-start'}}>
+              <View style={{flex: 1, alignItems: 'center', padding: 20, marginTop: 0, justifyContent: 'flex-start'}}>
+                <TouchableOpacity style={{position: 'absolute', top: 0, left: 0, }} onPress={() => this.setState({modalVisible: false, newPoint: null})}>
+                 <View style={{position: 'absolute', top: 0, width: 1000, height: 1000, flex: 1}} />
+                </TouchableOpacity>
                <View style={styles.boxWrapper}>
                  <Text style={styles.someText}>Add the Pokemon location</Text>
                  <AutoComplete
@@ -66,6 +69,7 @@ var DefaultMarkers = React.createClass({
                     onBlur={() => this.setState({isActiveField: false})}
                     getPockemonName={(name) => this.setState({pockemonName: name})}/>
                </View>
+
                <TouchableHighlight
                 style={styles.button}
                 onPress={() => {
@@ -75,7 +79,7 @@ var DefaultMarkers = React.createClass({
                  <Text style={styles.buttonText}>Save!</Text>
                </TouchableHighlight>
               </View>
-            </TouchableWithoutFeedback>
+
            </Modal>
           <MapView
             showsUserLocation={true}
@@ -122,6 +126,7 @@ var styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 20,
     paddingHorizontal: 15,
+    marginTop: 100,
   },
   container: {
     position: 'absolute',
@@ -155,12 +160,12 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   button: {
-    position: 'absolute',
-    bottom: 0,
+    // position: 'absolute',
+    // bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#EE4027',
-    width: width,
+    width: width* 0.8,
     left: 0,
     padding: 20
   },
