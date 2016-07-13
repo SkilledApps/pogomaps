@@ -31,6 +31,8 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  UIView *launchView = [[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil][0];
+  rootView.loadingView = launchView;
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
