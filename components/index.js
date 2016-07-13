@@ -25,8 +25,13 @@ export default class Pogomaps extends Component {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
     }
-    AppState.addEventListener('change', this._handleAppStateChange);
-    this._handleAppStateChange();
+    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  componentWillRecieveProps(nextProps) {
+    if (this.props.isWaitingStorage && !nextProps.isWaitingStorage) {
+      _handleAppStateChange()
+    }
   }
 
   _handleAppStateChange(currentAppState) {
@@ -60,9 +65,9 @@ export default class Pogomaps extends Component {
             </TouchableOpacity>}
         <Header {...this.props} style={styles.header}/>
         {
-          /*
+
             this.props.state.isLoading && <Loader style={styles.loader}/>
-          */
+
         }
         {this.props.state.isError &&
           <Notify

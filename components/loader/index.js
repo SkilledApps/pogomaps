@@ -19,9 +19,10 @@ export default class Loader extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
+    position: 'absolute',
     width, height,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.8)'
+    //justifyContent: 'center',
+    //backgroundColor: 'rgba(0,0,0,0.8)'
   }
 });

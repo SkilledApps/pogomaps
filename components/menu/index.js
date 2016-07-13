@@ -7,7 +7,6 @@ const {width, height} = Dimensions.get('window');
 export default class Menu extends Component {
   constructor(props) {
     super();
-    console.log(props.state.user)
     this.state = {
       teamname: props.state.user.teamname === 'anonymous' ? '' : props.state.user.teamname,
       username: props.state.user.username === 'anonymous' ? '' : props.state.user.username,

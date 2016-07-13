@@ -6,6 +6,7 @@ const initialState = {
   isLogget: false,
   isPending: false,
   isLoading: false,
+  isWaitingStorage: false,
   isMenuOpened: false,
   user: {
     teamname: 'anonymous',
@@ -28,7 +29,7 @@ export function reducer(state = initialState, action = {}) {
     case LOAD: {
       nextState = {
         ...state,
-        region: state.region,
+        isWaitingStorage: false,
       }
       return nextState;
     }
