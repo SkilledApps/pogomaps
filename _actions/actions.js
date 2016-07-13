@@ -64,7 +64,7 @@ export function addNewPoint(coordinates, pokemon) {
       },
       body: JSON.stringify({
         coordinates,
-        username: getState().username || 'anonymous',
+        username: getState().reducer.user && getState().reducer.user.username || 'anonymous',
         pokemon,
       })
     })
