@@ -1,6 +1,7 @@
 package com.pogomaps;
 
 import com.facebook.react.ReactActivity;
+import cl.json.RNSharePackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;

@@ -13,6 +13,7 @@
     "react-native-in-app-utils": "^4.0.0",
     "react-native-maps": "^0.7.1",
     "react-native-push-notification": "^2.0.0",
+    "react-native-share": "^1.0.11",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
