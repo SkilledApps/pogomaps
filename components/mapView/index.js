@@ -98,6 +98,9 @@ var DefaultMarkers = React.createClass({
                   title={`${marker.pokemon}`}
                   description={`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
                 >
+                <View
+                  style={{width: 100, position: 'absolute', left: 55, top: 15}}>
+                  <Text style={{fontSize: 12}}>{marker.pokemon}</Text></View>
                 </MapView.Marker>
               );
             })}
