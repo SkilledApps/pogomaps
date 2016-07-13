@@ -15,7 +15,9 @@ export default class Header extends Component {
   render() {
     return(
       <View style={[styles.container, this.props.styles]}>
-        <Text></Text>
+        <View style={styles.textWrap}>
+          <Text style={styles.teamName}>Team:{this.props.state.user.teamname}</Text>
+          </View>
         <TouchableOpacity style={styles.button} onPress={() => this.handleLeftButton()}>
           <Icon name='menu' size={35} color="#333"/>
         </TouchableOpacity>
@@ -49,5 +51,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.5)',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  textWrap: {
+    marginTop: 15,
+    marginLeft: 10,
+  },
+  teamName: {
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 16,
+    color: '#EE4027',
+    // textShadowOffset: {width: 0, height: 1},
+    // textShadowColor: 'rgba(0,0,0,0.3)'
   }
 })

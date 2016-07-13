@@ -86,18 +86,20 @@ var DefaultMarkers = React.createClass({
             style={styles.map}
             onLongPress={this.onMapPress}
           >
-            {this.props.state.markers.map((marker, i) => (
-              <MapView.Marker
-                key={i}
-                image={require('./img/pokeball.png')}
-                coordinate={marker.coordinate}
-                pinColor={marker.color || 'red'}
-                style={{width: 30, height: 30}}
-                title={`${marker.pokemon}`}
-                description={`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
-              >
-              </MapView.Marker>
-            ))}
+            {this.props.state.markers.map((marker, i) => {
+              return (
+                <MapView.Marker
+                  key={i}
+                  image={require('./img/pokeball.png')}
+                  coordinate={marker.coordinate}
+                  pinColor={marker.color || 'red'}
+                  style={{width: 30, height: 30}}
+                  title={`${marker.pokemon}`}
+                  description={`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
+                >
+                </MapView.Marker>
+              );
+            })}
             {this.state.newPoint && <MapView.Marker
               key={1000}
               image={require('./img/graypokeball.png')}
