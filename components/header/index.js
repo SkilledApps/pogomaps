@@ -59,10 +59,11 @@ const styles = StyleSheet.create({
   teamName: {
     fontSize: 16,
     color: 'black',
-    fontWeight: 'bold',
+
     backgroundColor: 'rgba(255,255,255,0.5)',
     padding: 15,
     borderRadius: 25,
+    fontFamily: 'Helvetica',
     // textShadowOffset: {width: 0, height: 1},
     // textShadowColor: 'rgba(0,0,0,0.3)'
   }

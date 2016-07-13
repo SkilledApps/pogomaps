@@ -28,9 +28,9 @@ export default class Pogomaps extends Component {
     AppState.addEventListener('change', this._handleAppStateChange.bind(this));
   }
 
-  componentWillRecieveProps(nextProps) {
-    if (this.props.isWaitingStorage && !nextProps.isWaitingStorage) {
-      _handleAppStateChange()
+  componentWillReceiveProps(nextProps) {
+    if (this.props.state.isWaitingStorage && !nextProps.state.isWaitingStorage) {
+      this._handleAppStateChange()
     }
   }
 
@@ -65,9 +65,7 @@ export default class Pogomaps extends Component {
             </TouchableOpacity>}
         <Header {...this.props} style={styles.header}/>
         {
-
             this.props.state.isLoading && <Loader style={styles.loader}/>
-
         }
         {this.props.state.isError &&
           <Notify

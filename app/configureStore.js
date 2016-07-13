@@ -7,9 +7,17 @@ import thunk from 'redux-thunk';
 import * as reducers from '../_reducers';
 import App from './configureRedux';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
+import filter from 'redux-storage-decorator-filter'
 
 const reducer = storage.reducer(combineReducers(reducers));
 const engine = createEngine('POGOMAP_V010');
+
+
+engine = filter(engine, [
+    'markers', 'user'
+], [
+
+]);
 const storageMiddleware = storage.createMiddleware(engine);
 const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk, logger, storageMiddleware)(createStore);

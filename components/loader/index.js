@@ -8,7 +8,7 @@ export default class Loader extends Component {
       <View style={[styles.wrapper, this.props.style]}>
         <ActivityIndicator
           animating={true}
-          color='#fff'
+          color='black'
           size='large'
           style={{height: 80}}
         />

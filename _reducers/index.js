@@ -3,23 +3,15 @@ import {LOAD, SAVE} from 'redux-storage';
 import * as types from '../_actions/types'
 
 const initialState = {
-  isLogget: false,
   isPending: false,
-  isLoading: false,
-  isWaitingStorage: false,
+  isLoading: true,
+  isWaitingStorage: true,
   isMenuOpened: false,
   user: {
     teamname: 'anonymous',
     username: 'anonymous',
   },
   markers: [],
-  defaultPosition: {lat: 37.78825, lng: -122.4324},
-  region: {
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  },
 };
 
 let nextState = {};
