@@ -17,6 +17,7 @@ var {
 var MapView = require('react-native-maps');
 import AutoComplete from '../pockemons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Share from '../share';
 var { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
@@ -109,7 +110,7 @@ var DefaultMarkers = React.createClass({
              />}
             <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
           </MapView>
-
+          <Share {...this.props} style={styles.button} textStyle={styles.buttonText}/>
         </View>
       </View>
     );
@@ -170,7 +171,7 @@ var styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 20,
-    fontFamily: 'Helvetica-Light',
+    fontFamily: 'Helvetica-Bold',
     textAlign: 'center',
     backgroundColor: 'transparent'
   },

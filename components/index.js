@@ -14,7 +14,6 @@ import Menu from './menu';
 import AutoComplete from './pockemons';
 import Loader from './loader';
 import Notify from './notification';
-
 const {width, height} = Dimensions.get('window');
 
 export default class Pogomaps extends Component {
@@ -54,7 +53,7 @@ export default class Pogomaps extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete} />
+        <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete}></MapView>
         {!this.props.state.username && this.props.state.isMenuOpened &&
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>
               <Menu {...this.props}/>
