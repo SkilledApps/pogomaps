@@ -38,8 +38,6 @@ var DefaultMarkers = React.createClass({
   },
 
   componentWillMount() {
-    let team = this.props.state.user.teamName ? this.props.state.user.teamName : 'anonymous';
-    this.props.actions.getPointsByTeamId(team) // TODO: real name
   },
 
   onMapPress(e) {

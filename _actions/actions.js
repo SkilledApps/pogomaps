@@ -30,8 +30,11 @@ export function signin(team, username) {
     if (res.status === 200) {
       getPointsByTeamId(team)(dispatch)
       dispatch({type: 'TEAM_ADDED'})
+    } else {
+      console.error(res)
+      dispatch({type: 'NETWORK_ERROR', error: 'This user already exists'})
     } })
-    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again'}))
   }
 }
 
@@ -46,7 +49,7 @@ export function getPointsByTeamId(teamName) {
     })
     .then(res => res.json())
     .then(res => dispatch({type: 'POINTS_LOADED', points: res}))
-    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again'}))
   }
 }
 
@@ -70,7 +73,7 @@ export function addNewPoint(coordinates, pokemon) {
     })
       .then(res => res.json())
       .then(res => dispatch({type: 'POINT_ADDED', res}))
-      .catch(error =>  dispatch({type: 'NETWORK_ERROR', error}))
+      .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again'}))
   }
 }
 

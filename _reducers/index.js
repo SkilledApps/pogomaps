@@ -137,6 +137,7 @@ export function reducer(state = initialState, action = {}) {
       return {
         ...state,
         isError: true,
+        error: action.error || 'Network error, please try again',
         isMenuOpened: false,
         isLoading: false,
       }

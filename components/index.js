@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  AppState,
 } from 'react-native';
 import MapView from './mapView';
 import Header from './header';
@@ -25,12 +26,20 @@ export default class Pogomaps extends Component {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
     }
+    AppState.addEventListener('change', this._handleAppStateChange);
+    this._handleAppStateChange();
+  }
+
+  _handleAppStateChange(currentAppState) {
+    let team = this.props.state.user.teamname ? this.props.state.user.teamname : 'anonymous';
+    this.props.actions.getPointsByTeamId(team) // TODO: real name
   }
 
   componentWillUnmount() {
     if (this.props.state.isMenuOpened === true) {
       this.props.actions.toggleMenu();
     }
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   componentWillUpdate(nextProps) {
@@ -60,7 +69,7 @@ export default class Pogomaps extends Component {
           <Notify
             bgColor='#EE4027'
             textColor='#fff'
-            message='Network error, please try again'
+            message={this.props.state.error}
             style={{position: 'absolute', bottom: 0, left: 0, right: 0}}
           />}
       </View>
