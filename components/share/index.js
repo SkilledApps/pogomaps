@@ -11,7 +11,7 @@ export default class ShareView extends Component {
     let text = 'See where I caught the latest Pokemon! Download PokeMaps from the app store, team ' + this.props.state.user.teamname;
     Share.open({
       share_text: text,
-      share_URL: "http://google.cl",
+      share_URL: "https://itunes.apple.com/us/app/pokemap-for-pokemon-go/id1133062782?ls=1&mt=8",
       title: "Tell friends about your pokemons"
     },(e) => {
       console.log(e);
@@ -21,7 +21,7 @@ export default class ShareView extends Component {
   render() {
     return (
       <TouchableOpacity onPress={() => this.onShare()} style={this.props.style}>
-        <Text style={[styles.text, this.props.textStyle]}>Share pokemons</Text>
+        <Text style={[styles.text, this.props.textStyle]}>Share Map</Text>
       </TouchableOpacity>
     )
   }

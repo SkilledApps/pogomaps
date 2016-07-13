@@ -85,7 +85,8 @@ export function reducer(state = initialState, action = {}) {
       }
       return {
         ...state,
-        markers: []
+        isLoading: false,
+        markers: [],
       };
 
     }
@@ -110,6 +111,7 @@ export function reducer(state = initialState, action = {}) {
       return {
         ...state,
         isLoading: true,
+        markers: [],
         user: {
           teamname: action.team,
           username: action.username,
@@ -121,6 +123,7 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         isLoading: true,
       }
+      
     case 'ERROR_RESET' : {
       nextState = {
         ...state,
