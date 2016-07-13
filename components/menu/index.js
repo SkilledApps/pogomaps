@@ -54,7 +54,7 @@ export default class Menu extends Component {
         </View>
         <View style={styles.menuItem}>
           <TouchableOpacity onPress={() => this.handleEnter()} style={styles.button}>
-            <Text style={styles.buttonText}>JOIN</Text>
+            <Text style={styles.buttonText}>{this.props.state.user.teamname === 'anonymous' ? 'JOIN' : 'JOINED'}</Text>
           </TouchableOpacity>
         </View>
       </View>
