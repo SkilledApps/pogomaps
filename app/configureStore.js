@@ -13,12 +13,12 @@ const reducer = storage.reducer(combineReducers(reducers));
 const engine = createEngine('POGOMAP_V010');
 
 
-engine = filter(engine, [
+const filteredEngine = filter(engine, [
     'markers', 'user'
 ], [
 
 ]);
-const storageMiddleware = storage.createMiddleware(engine);
+const storageMiddleware = storage.createMiddleware(filteredEngine);
 const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk, logger, storageMiddleware)(createStore);
 
@@ -26,7 +26,7 @@ const store = createStoreWithMiddleware(reducer);
 
 export default class Pogomaps extends Component {
 	componentWillMount() {
-		const load = storage.createLoader(engine);
+		const load = storage.createLoader(filteredEngine);
 		load(store);
 	}
 

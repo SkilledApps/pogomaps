@@ -11,7 +11,7 @@ import {
 import MapView from './mapView';
 import Header from './header';
 import Menu from './menu';
-import AutoComplete from './pockemons';
+import AutoComplete from './pokemons';
 import Loader from './loader';
 import Notify from './notification';
 const {width, height} = Dimensions.get('window');

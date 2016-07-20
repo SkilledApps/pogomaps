@@ -1,9 +1,11 @@
+/* @flow */
 var React = require('react');
 var ReactNative = require('react-native');
 var moment = require('moment')
+var pokemons = require('../pokemons/db.json')
 var {
   StyleSheet,
-  PropTypes,
+  Image,
   View,
   Text,
   Dimensions,
@@ -15,7 +17,7 @@ var {
 } = ReactNative;
 
 var MapView = require('react-native-maps');
-import AutoComplete from '../pockemons';
+import AutoComplete from '../pokemons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Share from '../share';
 var { width, height } = Dimensions.get('window');
@@ -58,23 +60,28 @@ var DefaultMarkers = React.createClass({
              visible={this.state.modalVisible}
              onRequestClose={() => this.setState({modalVisible: false, newPoint: null})}
              >
-              <View style={{flex: 1, alignItems: 'center', paddingTop: 100, padding: 20, marginTop: 0, justifyContent: 'flex-start'}}>
-                <TouchableOpacity style={{position: 'absolute', top: 0, left: 0, }} onPress={() => this.setState({modalVisible: false, newPoint: null})}>
-                 <View style={{position: 'absolute', top: 0, width: width, height: height, flex: 1}} />
+              <View style={styles.modalInner}>
+                <TouchableOpacity
+                  style={{position: 'absolute', top: 0, left: 0, }}
+                  onPress={() => this.setState({modalVisible: false, newPoint: null})}>
+                  <View style={{position: 'absolute', top: 0, width: width, height: height, flex: 1}} />
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
                  <Text style={styles.someText}>Add location</Text>
                  <AutoComplete
                     onFocus={() => this.setState({isActiveField: true})}
                     onBlur={() => this.setState({isActiveField: false})}
-                    getPockemonName={(name) => this.setState({pockemonName: name})}/>
+                    getpokemonName={(name) => {
+                      this.setState({pokemonName: name});
+                      this.setState({newPointSrc: getImageSrcFor(name)});
+                    }}/>
                </View>
 
                <TouchableHighlight
                 style={styles.button}
                 onPress={() => {
-                  this.props.actions.addNewPoint(this.state.newPoint, this.state.pockemonName);
-                  this.setState({modalVisible: false, newPoint: null});
+                  this.props.actions.addNewPoint(this.state.newPoint, this.state.pokemonName);
+                  this.setState({modalVisible: false, newPoint: null, newPointSrc: null});
                 }}>
                  <Text style={styles.buttonText}>Save!</Text>
                </TouchableHighlight>
@@ -88,31 +95,36 @@ var DefaultMarkers = React.createClass({
             onLongPress={this.onMapPress}
           >
             {this.props.state.markers.map((marker, i) => {
+              console.log(marker.coordinate.latitude, marker.coordinate.longitude)
               return (
                 <MapView.Marker
                   key={i}
-                  image={require('./img/pokeball.png')}
                   coordinate={marker.coordinate}
-                  pinColor={marker.color || 'red'}
-                  style={{width: 30, height: 30}}
-                  title={`${marker.pokemon}`}
-                  description={`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
                 >
-                <View
-                  style={{width: 100, position: 'absolute', left: 55, top: 15}}>
-                  <Text style={{fontSize: 12}}>{marker.pokemon}</Text></View>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                  <Image source={getImageSrcFor(marker.pokemon) || require('./img/pokeball.png')}
+                    style={styles.pokemon} resizeMode={'contain'} />
+                  <Text style={{fontSize: 12}}>{marker.pokemon}</Text>
+                  <Text style={{fontSize: 8, color: '#777', backgroundColor: 'white'}}>
+                    {`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
+                  </Text>
+                </View>
                 </MapView.Marker>
               );
             })}
-            {this.state.newPoint && <MapView.Marker
-              key={1000}
-              image={require('./img/graypokeball.png')}
-              coordinate={this.state.newPoint}
-              pinColor={'gray'}
-              style={{width: 30, height: 30}}
-             />}
-            <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
-          </MapView>
+            {this.state.newPoint &&
+              <MapView.Marker
+                key={1000}
+                coordinate={this.state.newPoint}
+                pinColor={'gray'}
+               >
+               <Image
+                source={this.state.newPointSrc ? this.state.newPointSrc : require('./img/graypokeball.png')}
+                style={styles.pokemon}/>
+             </MapView.Marker>
+           }
+                <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
+              </MapView>
           {this.props.state.markers.length > 0 &&
             <Share {...this.props} style={styles.button} textStyle={styles.buttonText} />
           }
@@ -208,9 +220,24 @@ var styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: width,
+  },
 
+  pokemon: { width: 30, height: 30, borderRadius: 2, borderWidth: 0.5, borderColor: 'black', backgroundColor: 'transparent' },
+
+  modalInner: {
+    flex: 1, alignItems: 'center', paddingTop: 20, padding: 20, marginTop: 0, justifyContent: 'flex-start'
   }
 
 });
+
+function getImageSrcFor(name) {
+  if (!name) {
+    return null;
+  }
+  const found = pokemons.filter(p => p.name === name);
+  return found && found.length > 0 ? {
+    uri: found[0].src
+  } : null;
+}
 
 module.exports = DefaultMarkers;
