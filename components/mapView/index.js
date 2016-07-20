@@ -80,6 +80,7 @@ var DefaultMarkers = React.createClass({
                <TouchableHighlight
                 style={styles.button}
                 onPress={() => {
+                  LayoutAnimation.spring();
                   this.props.actions.addNewPoint(this.state.newPoint, this.state.pokemonName);
                   this.setState({modalVisible: false, newPoint: null, newPointSrc: null});
                 }}>

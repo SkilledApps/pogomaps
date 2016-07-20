@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {View, Text,
   TouchableOpacity, Dimensions,
-  StyleSheet, AlertIOS, TextInput,
+  StyleSheet, AlertIOS, TextInput, LayoutAnimation,
   Image} from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import pokemons from './db';
@@ -45,10 +45,14 @@ export default class AutoComplete extends Component {
         <Autocomplete
           data={data}
           defaultValue={query}
-          onChangeText={text => this.setState({query: text})}
+          onChangeText={text => {
+            LayoutAnimation.easeInEaseOut();
+            this.setState({query: text})
+          }}
           renderItem={pokemon => (
             <TouchableOpacity onPress={() => {
               this.setState({query: pokemon.name})
+              LayoutAnimation.spring();
               dismissKeyboard();
               this.props.getpokemonName(pokemon.name);
             }} style={styles.row}>
