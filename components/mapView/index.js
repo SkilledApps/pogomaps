@@ -95,7 +95,6 @@ var DefaultMarkers = React.createClass({
             onLongPress={this.onMapPress}
           >
             {this.props.state.markers.map((marker, i) => {
-              console.log(marker.coordinate.latitude, marker.coordinate.longitude)
               return (
                 <MapView.Marker
                   key={i}
@@ -118,9 +117,15 @@ var DefaultMarkers = React.createClass({
                 coordinate={this.state.newPoint}
                 pinColor={'gray'}
                >
-               <Image
-                source={this.state.newPointSrc ? this.state.newPointSrc : require('./img/graypokeball.png')}
-                style={styles.pokemon}/>
+               <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                 <Image
+                  source={this.state.newPointSrc ? this.state.newPointSrc : require('./img/graypokeball.png')}
+                  style={styles.pokemon}/>
+                 <Text style={{fontSize: 12}}>New pokemon</Text>
+                 <Text style={{fontSize: 8, color: '#777', backgroundColor: 'white'}}>
+                   by {this.props.state.user.username}
+                 </Text>
+               </View>
              </MapView.Marker>
            }
                 <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
