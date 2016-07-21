@@ -100,6 +100,10 @@ export function setCurrentBox(box: string) {
   return { type: 'SET_BOX', payload: { box } }
 }
 
+export function setFilter(filter: string) {
+  return { type: 'SET_FILTER', payload: { filter } }
+}
+
 export function getStats() {
   return dispatch => {
     return fetch(API.getStats, {

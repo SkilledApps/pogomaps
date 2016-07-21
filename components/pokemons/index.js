@@ -26,7 +26,10 @@ export default class AutoComplete extends Component {
   };
 
   _filterData(query: string) {
-    return pokemons.filter(p => p.name.toLowerCase().startsWith(query.toLowerCase()))
+    if (!query) {
+      return [];
+    }
+    return pokemons.filter(p => p.name.toLowerCase().startsWith(query.trim().toLowerCase()))
   }
 
 	renderPokemonListRow(pokemon) {
@@ -49,9 +52,12 @@ export default class AutoComplete extends Component {
   render() {
     const { query } = this.state;
     const data = this._filterData(query)
+    const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
         <View style={this.props.style}>
 	        <Autocomplete
+            value={query || this.props.value}
+            blurOnSubmit={true}
             placeholder={this.props.placeholder}
             selectionColor={this.props.selectionColor}
             clearButtonMode={'always'}
@@ -59,12 +65,14 @@ export default class AutoComplete extends Component {
 						containerStyle={this.props.containerStyle}
 						inputContainerStyle={this.props.inputContainerStyle}
 						style={this.props.inputStyle}
-	          data={data}
-	          defaultValue={query}
+	          data={data.length === 1 && comp(query, data[0].title) ? [] : data}
+	          defaultValue={this.props.value || query}
 	          onChangeText={text => {
 	            LayoutAnimation.easeInEaseOut();
 	            this.setState({query: text})
+              this.props.getpokemonName(text);
 	          }}
+            onSubmitEditing={() => this.props.getpokemonName(this.state.query)}
 	          renderItem={(pokemon) => this.renderPokemonListRow(pokemon)}
 	        />
         </View>

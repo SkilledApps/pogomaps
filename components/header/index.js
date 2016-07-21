@@ -58,6 +58,7 @@ export default class AppHeader extends Component {
 			<View style={styles.appbar}>
 				<View style={styles.center}>
 					<AutoComplete
+              value={this.props.state.filter}
               placeholder={'Filter by Pokemon'}
               selectionColor={'#ddd'}
 							containerStyle={styles.searchBar}
@@ -67,7 +68,7 @@ export default class AppHeader extends Component {
 							onFocus={() => this.setState({isActiveField: true})}
 							onBlur={() => this.setState({isActiveField: false})}
 							getpokemonName={(name) => {
-							 console.log('pokemon')
+							  this.props.actions.setFilter(name);
 							}}/>
 				</View>
 				<View style={styles.left}>

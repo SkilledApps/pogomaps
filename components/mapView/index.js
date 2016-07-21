@@ -63,6 +63,10 @@ var DefaultMarkers = React.createClass({
   },
 
   render() {
+    const markers = this.props.state.filter ? this.props.state.markers
+      .filter(m => m.pokemon && m.pokemon.toLowerCase().startsWith(this.props.state.filter.toLowerCase())) :
+      this.props.state.markers;
+
     return (
       <View style={{flex: 1, width, height, paddingVertical: 20}}>
         <View style={styles.container}>
@@ -108,17 +112,17 @@ var DefaultMarkers = React.createClass({
             onLongPress={this.onMapPress}
             onRegionChange={(region) => this.onRegionChange(region)}
           >
-            {this.props.state.markers.map((marker, i) => {
+            {markers.map((marker, i) => {
               return (
                 <MapView.Marker
-                  key={i}
+                  key={marker.createdAt}
                   coordinate={marker.coordinate}
                 >
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
                   <Image source={getImageSrcFor(marker.pokemon) || require('./img/pokeball.png')}
                     style={styles.pokemon} resizeMode={'contain'} />
-                  <Text style={{fontSize: 12}}>{marker.pokemon}</Text>
-                  <Text style={{fontSize: 8, color: '#777', backgroundColor: 'white'}}>
+                  <Text style={{fontSize: 14}}>{marker.pokemon}</Text>
+                  <Text style={{fontSize: 10, width: 100, textAlign: 'center', color: '#777', backgroundColor: 'rgba(255, 255, 255, 0.5)'}} numberOfLines={2}>
                     {`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
                   </Text>
                 </View>
@@ -145,12 +149,6 @@ var DefaultMarkers = React.createClass({
            }
                 <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
               </MapView>
-          {/*
-						this.props.state.markers.length > 0 &&
-
-								<Share {...this.props} style={styles.button} textStyle={styles.buttonText} />
-						*/
-          }
         </View>
       </View>
     );
@@ -245,7 +243,7 @@ var styles = StyleSheet.create({
     width: width,
   },
 
-  pokemon: { width: 30, height: 30, borderRadius: 2, borderWidth: 0.5, borderColor: '#fff', backgroundColor: 'transparent', borderRadius: 15 },
+  pokemon: { width: 40, height: 40, borderRadius: 2, borderWidth: 0.5, borderColor: '#fff', backgroundColor: 'transparent', borderRadius: 15 },
 
   modalInner: {
     flex: 1, alignItems: 'center', paddingTop: 20, padding: 20, marginTop: 0, justifyContent: 'flex-start'

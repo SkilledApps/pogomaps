@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   AppState,
+  StatusBar,
 } from 'react-native';
 import MapView from './mapView';
 import Header from './header';
@@ -59,6 +60,7 @@ export default class Pogomaps extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle={'light-content'} />
         <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete}></MapView>
         {!this.props.state.username && this.props.state.isMenuOpened &&
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>

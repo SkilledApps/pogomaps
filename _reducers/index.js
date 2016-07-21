@@ -128,6 +128,11 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         box: action.payload.box,
       }
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload.filter,
+      }
 
     case 'ERROR_RESET' : {
       nextState = {
