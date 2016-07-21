@@ -113,7 +113,6 @@ export function reducer(state = initialState, action = {}) {
         isLoading: true,
         markers: [],
         user: {
-          teamname: action.team,
           username: action.username,
         }
       }

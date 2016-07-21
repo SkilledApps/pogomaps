@@ -79,7 +79,7 @@ var DefaultMarkers = React.createClass({
                   <View style={{position: 'absolute', top: 0, width: width, height: height, flex: 1}} />
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
-                 <Text style={styles.someText}>Add location</Text>
+                 <Text style={styles.someText}>Enter Pokemon</Text>
                  <AutoComplete
                     onFocus={() => this.setState({isActiveField: true})}
                     onBlur={() => this.setState({isActiveField: false})}
@@ -144,8 +144,11 @@ var DefaultMarkers = React.createClass({
            }
                 <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
               </MapView>
-          {this.props.state.markers.length > 0 &&
-            <Share {...this.props} style={styles.button} textStyle={styles.buttonText} />
+          {/*
+						this.props.state.markers.length > 0 &&
+
+								<Share {...this.props} style={styles.button} textStyle={styles.buttonText} />
+						*/
           }
         </View>
       </View>

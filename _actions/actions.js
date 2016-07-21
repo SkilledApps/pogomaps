@@ -3,6 +3,21 @@ import React from 'react';
 import * as API from '../_constants/apiEndPoints';
 import * as types from './types';
 import httpClient from '../_constants/httpClient'
+import Share from 'react-native-share';
+
+export function share(name: String) {
+	return (dispatch) => {
+	    let text = 'See where I caught the latest Pokemon! Download PokeMaps from the app store, team ' + name;
+	    Share.open({
+	      share_text: text,
+	      share_URL: "https://itunes.apple.com/us/app/pokemap-for-pokemon-go/id1133062782?ls=1&mt=8",
+	      title: "Tell friends about your pokemons"
+	    },(e) => {
+	      console.log(e);
+	    });
+		dispatch({type: 'SHARE'});
+	}
+}
 
 export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});

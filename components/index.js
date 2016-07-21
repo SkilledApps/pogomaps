@@ -64,7 +64,12 @@ export default class Pogomaps extends Component {
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>
               <Menu {...this.props}/>
             </TouchableOpacity>}
-        <Header {...this.props} style={styles.header}/>
+        <Header
+					{...this.props}
+					onLeftButtonPress={() => this.props.actions.toggleMenu()}
+					onRightButtonPress={() => this.props.actions.share(this.props.state.user.username)}
+					onSearch={() => console.log('onSearch')}
+				/>
         {
             this.props.state.isLoading && <Loader style={styles.loader}/>
         }

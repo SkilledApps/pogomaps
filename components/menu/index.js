@@ -8,18 +8,16 @@ export default class Menu extends Component {
   constructor(props) {
     super();
     this.state = {
-      teamname: props.state.user.teamname === 'anonymous' ? '' : props.state.user.teamname,
       username: props.state.user.username === 'anonymous' ? '' : props.state.user.username,
     }
   }
 
   state: {
-    teamname: string;
     username: string;
   };
 
   handleEnter() {
-    if (this.state.teamname.length > 0 && this.state.username.length > 0) {
+    if (this.state.username.length > 0) {
       this.props.actions.signin(this.state.teamname, this.state.username);
 
     } else {
@@ -30,16 +28,6 @@ export default class Menu extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <View style={styles.menuItem}>
-          <Icon name='people' size={35} color='#333'/>
-          <TextInput
-            placeholder='Team name'
-            keyboardType='name-phone-pad'
-            maxLength={20}
-            value={this.state.teamname}
-            onChangeText={(text) => this.setState({teamname: text})}
-            style={styles.input}></TextInput>
-        </View>
         <View style={styles.menuItem}>
           <Icon name='perm-identity' size={35} color='#333'/>
           <TextInput
@@ -53,7 +41,7 @@ export default class Menu extends Component {
         </View>
         <View style={styles.menuItem}>
           <TouchableOpacity onPress={() => this.handleEnter()} style={styles.button}>
-            <Text style={styles.buttonText}>{this.props.state.user.teamname === 'anonymous' ? 'JOIN' : 'JOIN'}</Text>
+            <Text style={styles.buttonText}>{this.props.state.user.username === 'anonymous' ? 'JOIN' : 'JOIN'}</Text>
           </TouchableOpacity>
         </View>
       </View>
