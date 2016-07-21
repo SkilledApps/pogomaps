@@ -37,6 +37,7 @@ export default class Pogomaps extends Component {
   _handleAppStateChange(currentAppState) {
     let team = this.props.state.user.teamname ? this.props.state.user.teamname : 'anonymous';
     this.props.actions.getPointsByTeamId(team) // TODO: real name
+    this.props.actions.getStats();
   }
 
   componentWillUnmount() {

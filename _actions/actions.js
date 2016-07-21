@@ -39,9 +39,9 @@ export function signin(team, username) {
 }
 
 export function getPointsByTeamId(teamName) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({type: 'LOAD_POINTS'})
-    return fetch(API.getPointsByTeamId(teamName), {
+    return fetch(API.getPointsByTeamId(teamName, getState().reducer.box), {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export function getPointsByTeamId(teamName) {
     })
     .then(res => res.json())
     .then(res => dispatch({type: 'POINTS_LOADED', points: res}))
-    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again'}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again', e: error}))
   }
 }
 
@@ -79,4 +79,22 @@ export function addNewPoint(coordinates, pokemon) {
 
 export function setCurrentRegion(position) {
   return { type: 'SET_REGION', position }
+}
+
+export function setCurrentBox(box: string) {
+  return { type: 'SET_BOX', payload: { box } }
+}
+
+export function getStats() {
+  return dispatch => {
+    return fetch(API.getStats, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(res => res.json())
+    .then(res => dispatch({type: 'STATS_LOADED', stats: res}))
+    .catch(error =>  dispatch({type: 'NETWORK_ERROR', error: 'Network error, please try again'}))
+  }
 }

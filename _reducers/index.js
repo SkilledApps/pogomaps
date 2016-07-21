@@ -123,7 +123,13 @@ export function reducer(state = initialState, action = {}) {
         ...state,
         isLoading: true,
       }
-      
+
+    case 'SET_BOX':
+      return {
+        ...state,
+        box: action.payload.box,
+      }
+
     case 'ERROR_RESET' : {
       nextState = {
         ...state,

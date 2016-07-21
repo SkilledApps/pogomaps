@@ -50,6 +50,18 @@ var DefaultMarkers = React.createClass({
     });
   },
 
+  onRegionChange(region) {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
+      const box = `((${region.longitude - region.longitudeDelta/2}, ${region.latitude - region.latitudeDelta / 2}), (${region.longitude + region.longitudeDelta/2}, ${region.latitude + region.latitudeDelta / 2}))`;
+      this.props.actions.setCurrentBox(box)
+      let team = this.props.state.user.teamname ? this.props.state.user.teamname : 'anonymous';
+      this.props.actions.getPointsByTeamId(team)
+    }, 250);
+  },
+
   render() {
     return (
       <View style={{flex: 1, width, height, paddingVertical: 20}}>
@@ -94,6 +106,7 @@ var DefaultMarkers = React.createClass({
             followsUserLocation={true}
             style={styles.map}
             onLongPress={this.onMapPress}
+            onRegionChange={(region) => this.onRegionChange(region)}
           >
             {this.props.state.markers.map((marker, i) => {
               return (
