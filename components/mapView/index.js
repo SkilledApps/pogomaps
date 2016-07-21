@@ -83,7 +83,7 @@ var DefaultMarkers = React.createClass({
                   <View style={{position: 'absolute', top: 0, width: width, height: height, flex: 1}} />
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
-                 <Text style={styles.someText}>Enter Pokemon</Text>
+                 <Text style={styles.someText}>New Monster!</Text>
                  <AutoComplete
                     onFocus={() => this.setState({isActiveField: true})}
                     onBlur={() => this.setState({isActiveField: false})}
