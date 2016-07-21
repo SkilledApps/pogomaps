@@ -14,7 +14,7 @@
     "moment": "^2.14.1",
     "node-fetch": "^1.5.3",
     "react": "15.2.1",
-    "react-native": "0.29.0",
+    "react-native": "0.30.0",
     "react-native-autocomplete": "^0.1.4",
     "react-native-autocomplete-input": "^1.1.0",
     "react-native-in-app-utils": "^4.0.0",
