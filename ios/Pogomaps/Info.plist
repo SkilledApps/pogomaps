@@ -42,15 +42,24 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>New item</key>
+			<string></string>
 			<key>api.askhashley.com</key>
 			<dict>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>askhashley.com</key>
-			<dict/>
+			<key>oyster.ignimgs.com</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>New item - 2</key>
+			<string></string>
 			<key>localhost</key>
 			<dict>
+				<key>New item</key>
+				<string></string>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
@@ -75,8 +84,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

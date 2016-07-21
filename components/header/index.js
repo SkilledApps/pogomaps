@@ -41,12 +41,12 @@ const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 10 : 0;
 
 const ICON_ADD = Platform.OS === 'ios' ?
-	{name: 'ios-settings-outline', color: '#fff', size: 35} :
-	{name: 'md-settings', color: '#fff', size: 35};
+	{name: 'ios-settings-outline', color: '#fff', size: 26} :
+	{name: 'md-settings', color: '#fff', size: 26};
 
 const ICON_SHARE = Platform.OS === 'ios' ?
-	{name: 'ios-share-outline', size: 35, color: '#fff'} :
-	{name: 'android-share', size: 35, color: '#fff'};
+	{name: 'ios-share-outline', size: 26, color: '#fff'} :
+	{name: 'android-share', size: 26, color: '#fff'};
 
 export default class AppHeader extends Component {
 	constructor(props) {
@@ -58,15 +58,16 @@ export default class AppHeader extends Component {
 			<View style={styles.appbar}>
 				<View style={styles.center}>
 					<AutoComplete
+              placeholder={'Filter by Pokemon'}
+              selectionColor={'#ddd'}
 							containerStyle={styles.searchBar}
-							inputStyle={styles.searchControl}
-							inputContainerStyle={{height: APPBAR_HEIGHT -5 ,marginTop: 5, backgroundColor: 'transparent', borderColor: 'transparent'}}
+              inputContainerStyle={styles.inputContainerStyle}
+              inputStyle={styles.searchControl}
 							rowStyle={styles.rowStyle}
 							onFocus={() => this.setState({isActiveField: true})}
 							onBlur={() => this.setState({isActiveField: false})}
 							getpokemonName={(name) => {
-							 this.setState({pokemonName: name});
-							 this.setState({newPointSrc: getImageSrcFor(name)});
+							 console.log('pokemon')
 							}}/>
 				</View>
 				<View style={styles.left}>
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0,
+    paddingTop: STATUSBAR_HEIGHT,
 		paddingHorizontal: 10
   },
 
@@ -118,20 +120,22 @@ const styles = StyleSheet.create({
   },
 
 	searchBar: {
-		backgroundColor: 'rgba(255,255,255,0.1)',
-		borderRadius: 5,
-		padding: 5,
+		// backgroundColor: 'rgba(255,255,255,0.1)',
+		// borderRadius: 5,
+		// padding: 5,
 		flex: 1,
 		width: width - 20 - 20 - 30 * 2,
-		borderColor: 'transparent'
+		borderColor: 'transparent',
+    justifyContent: 'flex-start',
+    top: 0,
 	},
 
 	searchControl: {
-		position: 'relative',
-		flex: 1,
-		marginTop: -20,
-		paddingHorizontal: 10,
-		fontSize: 16,
+		// flex: 1,
+		// marginTop: -5,
+    height: APPBAR_HEIGHT / 2 + 5,
+		paddingLeft: 10,
+		fontSize: 14,
 		color: '#fff',
 		textAlign: 'left',
 		backgroundColor: 'transparent',
@@ -139,11 +143,23 @@ const styles = StyleSheet.create({
 		borderWidth: 0,
 		zIndex: 10
 	},
+  inputContainerStyle: {
+    // height: APPBAR_HEIGHT/2,
+    marginTop: 5,
+    // //marginTop: STATUSBAR_HEIGHT,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'transparent',
+    // alignItems: 'center',
+    marginBottom: 10,
+  },
 	rowStyle: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
-      marginVertical: 10,
-			backgroundColor: 'transparent'
+      marginLeft: 10,
+      paddingVertical: 10,
+			backgroundColor: 'transparent',
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+      overflow: 'hidden',
 	}
 });

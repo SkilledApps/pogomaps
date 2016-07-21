@@ -36,12 +36,12 @@ export default class AutoComplete extends Component {
 		return (
 			<TouchableOpacity onPress={() => {
 				this.setState({query: name})
-				LayoutAnimation.spring();
+				LayoutAnimation.easeInEaseOut();
 				dismissKeyboard();
 				this.props.getpokemonName(name);
 			}} style={this.props.rowStyle ? this.props.rowStyle : styles.row}>
-				<Image source={image} style={{height: 30, width: 30}}/>
-				<Text style={{fontSize: 20, fontWeight: '200', marginLeft: 10}}>{name}</Text>
+				<Image source={image} style={{height: 30, width: 30}} onError={() => console.log('error')}/>
+				<Text style={{fontSize: 16, fontWeight: '200', marginLeft: 10}}>{name}</Text>
 			</TouchableOpacity>
 		)
 	}
@@ -52,6 +52,10 @@ export default class AutoComplete extends Component {
     return (
         <View style={this.props.style}>
 	        <Autocomplete
+            placeholder={this.props.placeholder}
+            selectionColor={this.props.selectionColor}
+            clearButtonMode={'always'}
+            placeholderTextColor={'#ddd'}
 						containerStyle={this.props.containerStyle}
 						inputContainerStyle={this.props.inputContainerStyle}
 						style={this.props.inputStyle}
@@ -82,7 +86,10 @@ var styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
-      marginVertical: 10,
+      marginLeft: 10,
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+      overflow: 'hidden',
     }
 });
