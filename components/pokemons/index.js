@@ -40,7 +40,7 @@ export default class AutoComplete extends Component {
 				dismissKeyboard();
 				this.props.getpokemonName(name);
 			}} style={this.props.rowStyle ? this.props.rowStyle : styles.row}>
-				<Image source={image} style={{height: 30, width: 30}}/>
+				<Image resizeMode='contain' source={image} style={{height: 30, width: 30}}/>
 				<Text style={{fontSize: 20, fontWeight: '200', marginLeft: 10}}>{name}</Text>
 			</TouchableOpacity>
 		)
