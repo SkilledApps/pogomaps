@@ -133,6 +133,7 @@ var DefaultMarkers = React.createClass({
                >
                <View style={{alignItems: 'center', justifyContent: 'center'}}>
                  <Image
+								 	resizeMode='contain'
                   source={this.state.newPointSrc ? this.state.newPointSrc : require('./img/graypokeball.png')}
                   style={styles.pokemon}/>
                  <Text style={{fontSize: 12}}>New pokemon</Text>
@@ -244,7 +245,7 @@ var styles = StyleSheet.create({
     width: width,
   },
 
-  pokemon: { width: 30, height: 30, borderRadius: 2, borderWidth: 0.5, borderColor: 'black', backgroundColor: 'transparent' },
+  pokemon: { width: 30, height: 30, borderRadius: 2, borderWidth: 0.5, borderColor: '#fff', backgroundColor: 'transparent', borderRadius: 15 },
 
   modalInner: {
     flex: 1, alignItems: 'center', paddingTop: 20, padding: 20, marginTop: 0, justifyContent: 'flex-start'
