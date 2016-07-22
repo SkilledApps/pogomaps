@@ -75,7 +75,7 @@ export default class Pogomaps extends Component {
 				}
         <Header
 					{...this.props}
-					onSearchFieldFocus={(isActive) => this.setState({isSearchFieldFocused: isActive})}
+					onSearchFieldFocus={(isActive) => this.setState({isSearchFieldFocused: !isActive})}
 					onLeftButtonPress={() => this.props.actions.toggleMenu()}
 					onRightButtonPress={() => this.props.actions.share(this.props.state.user.username)}
 					onSearch={() => console.log('onSearch')}

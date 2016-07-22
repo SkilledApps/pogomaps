@@ -1,5 +1,6 @@
 /* @flow */
 import React, {Component} from 'react';
+import * as _ from 'lodash';
 import {View, Text,
   TouchableOpacity, Dimensions,
   StyleSheet, AlertIOS, TextInput, LayoutAnimation,
@@ -11,7 +12,7 @@ const dismissKeyboard = require('dismissKeyboard')
 
 export const pokemon = pokemons;
 
-export default class AutoComplete extends Component {
+export default class PokemonSelector extends Component {
   constructor() {
     super();
     this.state = {
@@ -56,6 +57,8 @@ export default class AutoComplete extends Component {
     return (
         <View style={this.props.style}>
 	        <Autocomplete
+						onFocus={!!this.props.onFocus && this.props.onFocus}
+						onBlur={!!this.props.onBlur && this.props.onBlur}
             value={query || this.props.value}
             blurOnSubmit={true}
             placeholder={this.props.placeholder}
@@ -67,12 +70,20 @@ export default class AutoComplete extends Component {
 						style={this.props.inputStyle}
 	          data={data.length === 1 && comp(query, data[0].title) ? [] : data}
 	          defaultValue={this.props.value || query}
+						clearButtonMode={'while-editing'}
 	          onChangeText={text => {
-	            LayoutAnimation.easeInEaseOut();
-	            this.setState({query: text})
-              this.props.getpokemonName(text);
+							if (_.trim(text).length > 0) {
+								LayoutAnimation.easeInEaseOut();
+								this.setState({query: text})
+								this.props.getpokemonName(text);
+							}
 	          }}
-            onSubmitEditing={() => this.props.getpokemonName(this.state.query)}
+            onSubmitEditing={() => {
+							let {query} = this.state;
+							if (query && query.length > 0) {
+								this.props.getpokemonName(this.state.query)
+							}
+						}}
 	          renderItem={(pokemon) => this.renderPokemonListRow(pokemon)}
 	        />
         </View>

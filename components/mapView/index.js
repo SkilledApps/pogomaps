@@ -17,7 +17,7 @@ var {
 } = ReactNative;
 
 var MapView = require('react-native-maps');
-import AutoComplete from '../pokemons';
+import PokemonSelector from '../pokemons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Share from '../share';
 var { width, height } = Dimensions.get('window');
@@ -84,7 +84,8 @@ var DefaultMarkers = React.createClass({
                 </TouchableOpacity>
                <View style={styles.boxWrapper}>
                  <Text style={styles.someText}>New Monster!</Text>
-                 <AutoComplete
+                 <PokemonSelector
+								 		placeholder={'Enter Pokemon'}
                     onFocus={() => this.setState({isActiveField: true})}
                     onBlur={() => this.setState({isActiveField: false})}
                     getpokemonName={(name) => {
@@ -243,7 +244,7 @@ var styles = StyleSheet.create({
     width: width,
   },
 
-  pokemon: { width: 40, height: 40, borderRadius: 2, borderWidth: 0.5, borderColor: '#fff', backgroundColor: 'transparent', borderRadius: 15 },
+  pokemon: { width: 47, height: 47, borderRadius: 25, borderWidth: 3, borderColor: '#fff', backgroundColor: 'transparent'},
 
   modalInner: {
     flex: 1, alignItems: 'center', paddingTop: 20, padding: 20, marginTop: 0, justifyContent: 'flex-start'

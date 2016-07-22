@@ -13,7 +13,7 @@ const ReactComponentWithPureRenderMixin = require('react/lib/ReactComponentWithP
 const Icon = require('react-native-vector-icons/Ionicons');
 const {Component, PropTypes} = React;
 
-import AutoComplete, {pokemon} from '../pokemons';
+import PokemonSelector, {pokemon} from '../pokemons';
 
 function getImageSrcFor(name) {
   if (!name) {
@@ -56,7 +56,6 @@ export default class AppHeader extends Component {
 	handlerOnFocus(isActive) {
 		let {onSearchFieldFocus} = this.props;
 		if (!!onSearchFieldFocus) {
-			alert(isActive); // не срабатывает
 			onSearchFieldFocus(isActive);
 		}
 	}
@@ -65,7 +64,7 @@ export default class AppHeader extends Component {
 		return (
 			<View style={styles.appbar}>
 				<View style={styles.center}>
-					<AutoComplete
+					<PokemonSelector
               value={this.props.state.filter}
               placeholder={'Filter by Pokemon'}
               selectionColor={'#ddd'}
