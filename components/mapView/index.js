@@ -54,7 +54,9 @@ var DefaultMarkers = React.createClass({
   },
 
 	handleOnPressMarker(marker, index) {
-		this.setState({isVoteViewShow: true, selectedPokemon: marker, indexOfVotedPokemon: index});
+		// enable votes
+		let enabled = false;
+		this.setState({isVoteViewShow: enabled, selectedPokemon: marker, indexOfVotedPokemon: index});
 	},
 
 	handlerOnVote(vote) {

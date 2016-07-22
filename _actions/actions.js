@@ -21,7 +21,7 @@ export function share(name: String) {
 
 export function vote(data) {
 	return (dispatch) => {
-		dispatch({'VOTE_POKEMON', paylaod: data});
+		dispatch({type: 'VOTE_POKEMON', paylaod: data});
 	}
 }
 
