@@ -20,6 +20,7 @@ var MapView = require('react-native-maps');
 import PokemonSelector from '../pokemons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Share from '../share';
+import Vote from '../votes';
 var { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
@@ -36,7 +37,9 @@ function randomColor() {
 var DefaultMarkers = React.createClass({
   getInitialState() {
     return {
-      modalVisible: false
+      modalVisible: false,
+			selectedPokemon: null,
+			isVoteViewShow: false
     };
   },
 
@@ -51,7 +54,12 @@ var DefaultMarkers = React.createClass({
   },
 
 	handleOnPressMarker(marker, index) {
-		console.log(marker);
+		this.setState({isVoteViewShow: true, selectedPokemon: marker, indexOfVotedPokemon: index});
+	},
+
+	handlerOnVote(vote) {
+		this.setState({isVoteViewShow: false});
+		this.props.actions.vote({...this.state.selectedPokemon, vote})
 	},
 
   onRegionChange(region) {
@@ -118,14 +126,15 @@ var DefaultMarkers = React.createClass({
             onRegionChange={(region) => this.onRegionChange(region)}
           >
             {markers.map((marker, i) => {
+							let image = getImageSrcFor(marker.pokemon) || require('./img/pokeball.png');
               return (
                 <MapView.Marker
-									onPress={() => this.handleOnPressMarker(marker, i)}
+									onPress={() => this.handleOnPressMarker({...marker, image}, i)}
                   key={marker.createdAt}
                   coordinate={marker.coordinate}
                 >
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                  <Image source={getImageSrcFor(marker.pokemon) || require('./img/pokeball.png')}
+                  <Image source={image}
                     style={styles.pokemon} resizeMode={'contain'} />
                   <Text style={{fontSize: 14}}>{marker.pokemon}</Text>
                   <Text style={{fontSize: 10, width: 100, textAlign: 'center', color: '#777', backgroundColor: 'rgba(255, 255, 255, 0.5)'}} numberOfLines={2}>
@@ -154,8 +163,16 @@ var DefaultMarkers = React.createClass({
                </View>
              </MapView.Marker>
            }
-                <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
-              </MapView>
+              <Text style={[styles.screenText]}>Long tap to add a new monster to map</Text>
+            </MapView>
+						{this.state.isVoteViewShow &&
+							<Vote
+								pokemon={this.state.selectedPokemon.pokemon}
+								created={this.state.selectedPokemon.created}
+								username={this.state.selectedPokemon.username}
+								image={this.state.selectedPokemon.image}
+								onVote={(vote) => this.handlerOnVote(vote)}/>
+						}
         </View>
       </View>
     );

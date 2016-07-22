@@ -1,5 +1,5 @@
 /* @flow */
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import * as _ from 'lodash';
 import {View, Text,
   TouchableOpacity, Dimensions,
@@ -11,6 +11,12 @@ const {width, height} = Dimensions.get('window');
 const dismissKeyboard = require('dismissKeyboard')
 
 export const pokemon = pokemons;
+
+export const POKEMON_PROPS = {
+	pokemon: PropTypes.string.isRequired,
+	created: PropTypes.string,
+	username: PropTypes.string
+};
 
 export default class PokemonSelector extends Component {
   constructor() {

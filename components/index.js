@@ -58,21 +58,21 @@ export default class Pogomaps extends Component {
     }
   }
 
+	handleOnMapPress() {
+		if (this.state.isSearchFieldFocused === true) {
+			this.setState({isSearchFieldFocused: false});
+		}
+	}
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
-        <MapView {...this.props} style={{flex: 1}} autoComplete={AutoComplete}></MapView>
+        <MapView onPress={() => this.handleOnMapPress()} {...this.props} style={{flex: 1}} autoComplete={AutoComplete}></MapView>
         {!this.props.state.username && this.props.state.isMenuOpened &&
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>
               <Menu {...this.props}/>
             </TouchableOpacity>}
-				{!!this.state.isSearchFieldFocused &&
-					<TouchableOpacity
-						onPress={() => console.log('onPress')}
-						style={{width, height, position: 'absolute', top: 0, left: 0, backgroundColor: '#333'}}>
-					</TouchableOpacity>
-				}
         <Header
 					{...this.props}
 					onSearchFieldFocus={(isActive) => this.setState({isSearchFieldFocused: !isActive})}

@@ -19,6 +19,12 @@ export function share(name: String) {
 	}
 }
 
+export function vote(data) {
+	return (dispatch) => {
+		dispatch({'VOTE_POKEMON', paylaod: data});
+	}
+}
+
 export function toggleMenu() {
   return dispatch => dispatch({type: types.TOGGLE_MENU});
 }
