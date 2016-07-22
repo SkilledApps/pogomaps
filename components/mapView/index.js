@@ -50,6 +50,10 @@ var DefaultMarkers = React.createClass({
     });
   },
 
+	handleOnPressMarker(marker, index) {
+		console.log(marker);
+	},
+
   onRegionChange(region) {
     if (this.timeout) {
       clearTimeout(this.timeout);
@@ -116,6 +120,7 @@ var DefaultMarkers = React.createClass({
             {markers.map((marker, i) => {
               return (
                 <MapView.Marker
+									onPress={() => this.handleOnPressMarker(marker, i)}
                   key={marker.createdAt}
                   coordinate={marker.coordinate}
                 >
@@ -124,7 +129,8 @@ var DefaultMarkers = React.createClass({
                     style={styles.pokemon} resizeMode={'contain'} />
                   <Text style={{fontSize: 14}}>{marker.pokemon}</Text>
                   <Text style={{fontSize: 10, width: 100, textAlign: 'center', color: '#777', backgroundColor: 'rgba(255, 255, 255, 0.5)'}} numberOfLines={2}>
-                    {`${moment(marker.createdAt).fromNow()} by ${marker.username}`}
+                    {`${moment(marker.createdAt).fromNow()}`}
+										{marker.username === 'anonymous' ?  '' : 'by ' + marker.username}
                   </Text>
                 </View>
                 </MapView.Marker>
