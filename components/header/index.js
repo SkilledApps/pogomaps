@@ -37,8 +37,8 @@ const {
 } = ReactNative;
 let {width, height} = Dimensions.get('window');
 
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 10 : 0;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 46 : 56;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 12 : 0;
 
 const ICON_ADD = Platform.OS === 'ios' ?
 	{name: 'ios-settings-outline', color: '#fff', size: 26} :
@@ -53,6 +53,14 @@ export default class AppHeader extends Component {
 		super();
 	}
 
+	handlerOnFocus(isActive) {
+		let {onSearchFieldFocus} = this.props;
+		if (!!onSearchFieldFocus) {
+			alert(isActive); // не срабатывает
+			onSearchFieldFocus(isActive);
+		}
+	}
+
 	render() {
 		return (
 			<View style={styles.appbar}>
@@ -65,8 +73,8 @@ export default class AppHeader extends Component {
               inputContainerStyle={styles.inputContainerStyle}
               inputStyle={styles.searchControl}
 							rowStyle={styles.rowStyle}
-							onFocus={() => this.setState({isActiveField: true})}
-							onBlur={() => this.setState({isActiveField: false})}
+							onFocus={() => this.handlerOnFocus(true)}
+							onBlur={() => this.handlerOnFocus(false)}
 							getpokemonName={(name) => {
 							  this.props.actions.setFilter(name);
 							}}/>
@@ -125,15 +133,13 @@ const styles = StyleSheet.create({
 		// borderRadius: 5,
 		// padding: 5,
 		flex: 1,
-		width: width - 20 - 20 - 30 * 2,
+		width: width - 20 - 20 - 25 * 2,
 		borderColor: 'transparent',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     top: 0,
 	},
 
 	searchControl: {
-		// flex: 1,
-		// marginTop: -5,
     height: APPBAR_HEIGHT / 2 + 5,
 		paddingLeft: 10,
 		fontSize: 14,
@@ -145,13 +151,11 @@ const styles = StyleSheet.create({
 		zIndex: 10
 	},
   inputContainerStyle: {
-    // height: APPBAR_HEIGHT/2,
     marginTop: 5,
-    // //marginTop: STATUSBAR_HEIGHT,
     backgroundColor: 'rgba(255,255,255,0.1)',
     borderColor: 'transparent',
-    // alignItems: 'center',
     marginBottom: 10,
+		borderRadius: 5
   },
 	rowStyle: {
       flexDirection: 'row',

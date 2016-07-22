@@ -20,6 +20,7 @@ const {width, height} = Dimensions.get('window');
 export default class Pogomaps extends Component {
   constructor() {
     super();
+		this.state = {};
   }
 
   componentWillMount() {
@@ -66,8 +67,15 @@ export default class Pogomaps extends Component {
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>
               <Menu {...this.props}/>
             </TouchableOpacity>}
+				{!!this.state.isSearchFieldFocused &&
+					<TouchableOpacity
+						onPress={() => console.log('onPress')}
+						style={{width, height, position: 'absolute', top: 0, left: 0, backgroundColor: '#333'}}>
+					</TouchableOpacity>
+				}
         <Header
 					{...this.props}
+					onSearchFieldFocus={(isActive) => this.setState({isSearchFieldFocused: isActive})}
 					onLeftButtonPress={() => this.props.actions.toggleMenu()}
 					onRightButtonPress={() => this.props.actions.share(this.props.state.user.username)}
 					onSearch={() => console.log('onSearch')}
