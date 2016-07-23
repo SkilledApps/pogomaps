@@ -53,13 +53,6 @@ export default class AppHeader extends Component {
 		super();
 	}
 
-	handlerOnFocus(isActive) {
-		let {onSearchFieldFocus} = this.props;
-		if (!!onSearchFieldFocus) {
-			onSearchFieldFocus(isActive);
-		}
-	}
-
 	render() {
 		return (
 			<View style={styles.appbar}>
@@ -72,8 +65,6 @@ export default class AppHeader extends Component {
               inputContainerStyle={styles.inputContainerStyle}
               inputStyle={styles.searchControl}
 							rowStyle={styles.rowStyle}
-							onFocus={() => this.handlerOnFocus(true)}
-							onBlur={() => this.handlerOnFocus(false)}
 							getpokemonName={(name) => {
 							  this.props.actions.setFilter(name);
 							}}/>

@@ -124,6 +124,7 @@ var DefaultMarkers = React.createClass({
             showsUserLocation={true}
             followsUserLocation={true}
             style={styles.map}
+            onPress={this.props.onPress}
             onLongPress={this.onMapPress}
             onRegionChange={(region) => this.onRegionChange(region)}
           >

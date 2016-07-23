@@ -23,7 +23,8 @@ export default class PokemonSelector extends Component {
     super();
     this.state = {
         query: '',
-        pokemons
+        pokemons,
+        active: false
     };
   }
 
@@ -57,14 +58,14 @@ export default class PokemonSelector extends Component {
 	}
 
   render() {
-    const { query } = this.state;
+    const { query, active } = this.state;
     const data = this._filterData(query)
     const comp = (s, s2) => s.toLowerCase().trim() === s2.toLowerCase().trim();
     return (
         <View style={this.props.style}>
 	        <Autocomplete
-						onFocus={!!this.props.onFocus && this.props.onFocus}
-						onBlur={!!this.props.onBlur && this.props.onBlur}
+						onFocus={() => this.setState({active: true})}
+						onBlur={() => this.setState({active: false})}
             value={query || this.props.value}
             blurOnSubmit={true}
             placeholder={this.props.placeholder}
@@ -74,21 +75,20 @@ export default class PokemonSelector extends Component {
 						containerStyle={this.props.containerStyle}
 						inputContainerStyle={this.props.inputContainerStyle}
 						style={this.props.inputStyle}
-	          data={data.length === 1 && comp(query, data[0].title) ? [] : data}
+	          data={data.length === 1 && comp(query, data[0].title) || !active ? [] : data}
 	          defaultValue={this.props.value || query}
 						clearButtonMode={'while-editing'}
 	          onChangeText={text => {
-							if (_.trim(text).length > 0) {
+							//if (_.trim(text).length > 0) {
 								LayoutAnimation.easeInEaseOut();
 								this.setState({query: text})
 								this.props.getpokemonName(text);
-							}
+							//}
 	          }}
             onSubmitEditing={() => {
-							let {query} = this.state;
-							if (query && query.length > 0) {
-								this.props.getpokemonName(this.state.query)
-							}
+							//if (query && query.length > 0) {
+								this.props.getpokemonName(query)
+							//}
 						}}
 	          renderItem={(pokemon) => this.renderPokemonListRow(pokemon)}
 	        />

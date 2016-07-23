@@ -16,6 +16,7 @@ import AutoComplete from './pokemons';
 import Loader from './loader';
 import Notify from './notification';
 const {width, height} = Dimensions.get('window');
+const dismissKeyboard = require('dismissKeyboard')
 
 export default class Pogomaps extends Component {
   constructor() {
@@ -59,23 +60,24 @@ export default class Pogomaps extends Component {
   }
 
 	handleOnMapPress() {
-		if (this.state.isSearchFieldFocused === true) {
-			this.setState({isSearchFieldFocused: false});
-		}
+    console.log('handleOnMapPress', this.state.isSearchFieldFocused)
+    dismissKeyboard()
 	}
 
   render() {
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
-        <MapView onPress={() => this.handleOnMapPress()} {...this.props} style={{flex: 1}} autoComplete={AutoComplete}></MapView>
+        <MapView
+          onPress={() => this.handleOnMapPress()}
+          {...this.props} style={{flex: 1}}
+          autoComplete={AutoComplete}></MapView>
         {!this.props.state.username && this.props.state.isMenuOpened &&
             <TouchableOpacity style={styles.cover} onPress={() => this.props.actions.toggleMenu()} activeOpacity={0.8}>
               <Menu {...this.props}/>
             </TouchableOpacity>}
         <Header
 					{...this.props}
-					onSearchFieldFocus={(isActive) => this.setState({isSearchFieldFocused: !isActive})}
 					onLeftButtonPress={() => this.props.actions.toggleMenu()}
 					onRightButtonPress={() => this.props.actions.share(this.props.state.user.username)}
 					onSearch={() => console.log('onSearch')}
